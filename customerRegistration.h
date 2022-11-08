@@ -36,3 +36,73 @@
         - make validation its own function(s)
     - will need to be able to read PREVIOUS RECORDS
 */
+#ifndef CUSTOMERREGISTRATION_H
+#define CUSTOMERREGISTRATION_H
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+void registerUser()
+{
+    inputUsername();
+    inputFirstName();
+    inputLastName();
+    inputDOB();
+    inputCreditCard();
+    inputPoints();
+    assignId();
+    logNewUser();
+}
+
+void inputUsername()
+{
+    string username = "";
+    cout << "Enter your username: ";
+    cin >> username;
+}
+
+void inputFirstName()
+{
+    string firstname = "";
+    cout << "Enter your first name: ";
+    cin >> firstname;
+}
+
+void inputLastName()
+{
+    string lastname = "";
+    cout << "Enter your last name: ";
+    cin >> lastname;
+}
+
+void inputDOB()
+{
+    string dob;
+    cout << "Enter your date of birth (MM-DD-YYYY): ";
+    cin >> dob;
+}
+
+void inputCreditCard()
+{
+    string cc;
+    cout << "Enter your credit card number: ";
+    cin >> cc;
+}
+
+void inputPoints()
+{
+    string points;
+    cout << "Enter your current reward points: ";
+    cin >> points;
+}
+
+void assignId()
+{
+    // assign the user an ID - only after their inputs have been validated
+}
+
+void logNewUser()
+{
+    // log the new user into customers.txt
+}
+#endif
