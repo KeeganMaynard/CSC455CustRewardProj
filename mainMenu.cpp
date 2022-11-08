@@ -24,15 +24,7 @@ int main()
     while (run)
     {
         string option = "";
-        cout << "Select the number associated with the opperation you wish to perform" << endl;
-        cout << "[1] Customer registration" << endl;
-        cout << "[2] Customer removal" << endl;
-        cout << "[3] Product addition" << endl;
-        cout << "[4] Product removal" << endl;
-        cout << "[5] Shopping" << endl;
-        cout << "[6] View customer using customer ID" << endl;
-        cout << "[7] Redeem rewards" << endl;
-        cout << "[8] End session" << endl;
+        displayOpts();
         cin >> option;
 
         switch (stoi(option))
@@ -64,4 +56,17 @@ int main()
     }
 
     return 0;
+}
+
+void displayOpts()
+{
+    cout << "Select the number associated with the opperation you wish to perform" << endl;
+    cout << "[1] Customer registration" << endl;
+    cout << "[2] Customer removal" << endl;
+    cout << "[3] Product addition" << endl;
+    cout << "[4] Product removal" << endl;
+    cout << "[5] Shopping" << endl;
+    cout << "[6] View customer using customer ID" << endl;
+    cout << "[7] Redeem rewards" << endl;
+    cout << "[8] End session" << endl;
 }
