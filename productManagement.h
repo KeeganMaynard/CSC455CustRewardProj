@@ -15,4 +15,5 @@
     - will need to split all inputs into their own functions
         - make logging its own function
         - make validation its own function
+    - will need to be able to read PREVIOUS RECORDS
 */
