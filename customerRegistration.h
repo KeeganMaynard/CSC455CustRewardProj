@@ -58,6 +58,14 @@ void registerUser()
     logNewUser(custID, username, fname, lname, dob, ccNum, rewardPoints);
 }
 
+void removeUser()
+{
+}
+
+void lookUpUser()
+{
+}
+
 string inputUsername()
 {
     string username = "";

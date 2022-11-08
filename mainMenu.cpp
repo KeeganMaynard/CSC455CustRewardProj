@@ -14,3 +14,54 @@
 #include "productManagement.h"
 #include "rewardManagement.h"
 #include "transaction.h"
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main()
+{
+    bool run = true;
+    while (run)
+    {
+        string option = "";
+        cout << "Select the number associated with the opperation you wish to perform" << endl;
+        cout << "[1] Customer registration" << endl;
+        cout << "[2] Customer removal" << endl;
+        cout << "[3] Product addition" << endl;
+        cout << "[4] Product removal" << endl;
+        cout << "[5] Shopping" << endl;
+        cout << "[6] View customer using customer ID" << endl;
+        cout << "[7] Redeem rewards" << endl;
+        cout << "[8] End session" << endl;
+        cin >> option;
+
+        switch (stoi(option))
+        {
+        case 1:
+            registerUser();
+            break;
+        case 2:
+            removeUser();
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            lookUpUser();
+            break;
+        case 7:
+            break;
+        case 8:
+            run = false;
+            break;
+        default:
+            cout << "Error. Invalid option entered. Please try again" << endl;
+            break;
+        }
+    }
+
+    return 0;
+}
