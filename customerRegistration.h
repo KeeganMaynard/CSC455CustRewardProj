@@ -39,70 +39,189 @@
 #ifndef CUSTOMERREGISTRATION_H
 #define CUSTOMERREGISTRATION_H
 #include <iostream>
-#include <string.h>
+#include <string>
+#include <fstream>
 using namespace std;
+
+int custCount = 1;
 
 void registerUser()
 {
-    inputUsername();
-    inputFirstName();
-    inputLastName();
-    inputDOB();
-    inputCreditCard();
-    inputPoints();
-    assignId();
-    logNewUser();
+    string username, fname, lname, dob, ccNum, custID, rewardPoints;
+    username = inputUsername();
+    fname = inputFirstName();
+    lname = inputLastName();
+    dob = inputDOB();
+    ccNum = inputCreditCard();
+    rewardPoints = inputPoints();
+    custID = assignId();
+    logNewUser(custID, username, fname, lname, dob, ccNum, rewardPoints);
 }
 
-void inputUsername()
+string inputUsername()
 {
     string username = "";
     cout << "Enter your username: ";
     cin >> username;
+    if (validateUserName(username))
+    {
+        return username;
+    }
+    else
+    {
+        // call inputUsername again to
+        if (isUnique(username))
+        {
+            cout << "The username must be 8 characters followed by at most 3 numbers" << endl;
+        }
+        else
+        {
+            cout << "This username already exists" << endl;
+        }
+        inputUsername();
+    }
 }
 
-void inputFirstName()
+string inputFirstName()
 {
     string firstname = "";
     cout << "Enter your first name: ";
     cin >> firstname;
+    if (validateName(firstname))
+    {
+        return firstname;
+    }
+    else
+    {
+        cout << "The name cannot be longer than 15 characters" << endl;
+        cout << "The name cannot contain any numbers or special characters" << endl;
+        inputFirstName();
+    }
 }
 
-void inputLastName()
+string inputLastName()
 {
     string lastname = "";
     cout << "Enter your last name: ";
     cin >> lastname;
+    if (validateName(lastname))
+    {
+        return lastname;
+    }
+    else
+    {
+        cout << "The name cannot be longer than 15 characters" << endl;
+        cout << "The name cannot contain any numbers or special characters" << endl;
+        inputLastName();
+    }
 }
 
-void inputDOB()
+string inputDOB()
 {
     string dob;
     cout << "Enter your date of birth (MM-DD-YYYY): ";
     cin >> dob;
+    if (validateDOB(dob))
+    {
+        return dob;
+    }
+    else
+    {
+        cout << "The date of birth must follow the MM-DD-YYYY format" << endl;
+        cout << "MM, DD, and YYYY must be numbers" << endl;
+        inputDOB();
+    }
 }
 
-void inputCreditCard()
+string inputCreditCard()
 {
     string cc;
     cout << "Enter your credit card number: ";
     cin >> cc;
+    if (validateCreditCard(cc))
+    {
+        return cc;
+    }
+    else
+    {
+        if (isUnique(cc))
+        {
+            cout << "The credit card number must follow the xxxx-xxxx-xxxx format" << endl;
+            cout << "The credit card number values must be numbers" << endl;
+        }
+        else
+        {
+            cout << "This credit card number already exists" << endl;
+        }
+        inputCreditCard();
+    }
 }
 
-void inputPoints()
+string inputPoints()
 {
     string points;
     cout << "Enter your current reward points: ";
     cin >> points;
+    if (validatePoints(points))
+    {
+        assignId();
+    }
+    else
+    {
+        cout << "The reward points must be a positive number" << endl;
+        inputPoints();
+    }
 }
 
-void assignId()
+string assignId()
 {
-    // assign the user an ID - only after their inputs have been validated
+    // assign the user an ID - only after their inputs have been
+    string newID = "CID";
+    // attach 10 digits to end of newID
 }
 
-void logNewUser()
+void logNewUser(string custID, string username, string first, string last, string dob, string ccNum, string points)
 {
     // log the new user into customers.txt
+    ofstream customersLog("customers.txt");
+    customersLog << "customer " << custCount << " ID " << custID << endl;
+    customersLog << "customer " << custCount << " user name " << username << endl;
+    customersLog << "customer " << custCount << " first name " << first << endl;
+    customersLog << "customer " << custCount << " last name " << last << endl;
+    customersLog << "customer " << custCount << " date of birth " << dob << endl;
+    customersLog << "customer " << custCount << " credit card number " << ccNum << endl;
+    customersLog << "customer " << custCount << " total reward points " << points << endl;
+    custCount += custCount;
 }
+
+bool isUnique(string newValue)
+{
+    return true;
+}
+
+bool validateUserName(string newUserName)
+{
+    return true;
+}
+
+bool validateName(string newName)
+{
+    return true;
+}
+
+bool validateDOB(string newDob)
+{
+    return true;
+}
+
+bool validateCreditCard(string newCreditCard)
+{
+    return true;
+}
+
+bool validatePoints(string newPoints)
+{
+    return true;
+}
+
 #endif
