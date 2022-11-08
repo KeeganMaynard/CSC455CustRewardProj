@@ -12,14 +12,18 @@
         - same as first name
     - date of birth:
         - Must be in MM-DD-YYYY format
+            ex: 01-23-2022
         - values must be ints
+        - how do we validate? Do we need to check if MM <= 12, DD <=30, YYYY <=2022?
     - credit card number:
         - must be unique (cannot already exist)
         - must follow format xxxx-xxx-xxxx (4-3-4)
+            ex: 1234-567-8910
         - must be ints
     - system will assign unique user ID:
         - must be unique (cannot already exist)
         - must start with "CID", follow by 10 digits
+            ex: CID1234567890
         - only assign user ID AFTER user input has been validated!!
     - reward points:
         - must be a positive number
