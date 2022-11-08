@@ -10,3 +10,7 @@
     - view customer using customer ID (customerRegistration.h)
     - redeem rewards (rewardManagement.h)
 */
+#include "customerRegistration.h"
+#include "productManagement.h"
+#include "rewardManagement.h"
+#include "transaction.h"
