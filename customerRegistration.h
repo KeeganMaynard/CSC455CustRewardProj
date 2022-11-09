@@ -45,21 +45,40 @@ using namespace std;
 
 int custCount = 1;
 
+class customer
+{
+public:
+    customer();
+
+    string username;
+    string fname;
+    string lname;
+    string dob;
+    string ccNum;
+    string custID;
+    string rewardPoints;
+    int customNum;
+};
+
 void registerUser()
 {
-    string username, fname, lname, dob, ccNum, custID, rewardPoints;
-    username = inputUsername();
-    fname = inputFirstName();
-    lname = inputLastName();
-    dob = inputDOB();
-    ccNum = inputCreditCard();
-    rewardPoints = inputPoints();
-    custID = assignId();
-    logNewUser(custID, username, fname, lname, dob, ccNum, rewardPoints);
+    customer newCustomer;
+
+    newCustomer.username = inputUsername();
+    newCustomer.fname = inputFirstName();
+    newCustomer.lname = inputLastName();
+    newCustomer.dob = inputDOB();
+    newCustomer.ccNum = inputCreditCard();
+    newCustomer.rewardPoints = inputPoints();
+    newCustomer.custID = assignId();
+    logNewUser(newCustomer);
 }
 
 void removeUser()
 {
+    string delCustomer;
+    cout << "Enter the customer ID that you wish to remove: ";
+    cin >> delCustomer;
 }
 
 void lookUpUser()
@@ -188,17 +207,17 @@ string assignId()
     // attach 10 digits to end of newID
 }
 
-void logNewUser(string custID, string username, string first, string last, string dob, string ccNum, string points)
+void logNewUser(customer logCustomer)
 {
     // log the new user into customers.txt
     ofstream customersLog("customers.txt");
-    customersLog << "customer " << custCount << " ID " << custID << endl;
-    customersLog << "customer " << custCount << " user name " << username << endl;
-    customersLog << "customer " << custCount << " first name " << first << endl;
-    customersLog << "customer " << custCount << " last name " << last << endl;
-    customersLog << "customer " << custCount << " date of birth " << dob << endl;
-    customersLog << "customer " << custCount << " credit card number " << ccNum << endl;
-    customersLog << "customer " << custCount << " total reward points " << points << endl;
+    customersLog << "customer " << custCount << " ID " << logCustomer.custID << endl;
+    customersLog << "customer " << custCount << " user name " << logCustomer.username << endl;
+    customersLog << "customer " << custCount << " first name " << logCustomer.fname << endl;
+    customersLog << "customer " << custCount << " last name " << logCustomer.lname << endl;
+    customersLog << "customer " << custCount << " date of birth " << logCustomer.dob << endl;
+    customersLog << "customer " << custCount << " credit card number " << logCustomer.ccNum << endl;
+    customersLog << "customer " << custCount << " total reward points " << logCustomer.rewardPoints << endl;
     custCount += custCount;
 }
 
