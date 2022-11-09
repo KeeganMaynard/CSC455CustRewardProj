@@ -183,16 +183,21 @@ bool validatePointsEarned(int newPointsEarned)
     }
 }
 
-void redeemRewards(customer newCustomer, rewards newRewards)
+void redeemRewards(rewards &newRewards)
 {
-    int availablePoints = newCustomer.getPoints();
-    if (availablePoints > newRewards.getGiftValue())
+    string customerID;
+    cout << "Enter in your customer ID: " << endl;
+    cin >> customerID;
+    if(previousID(customerID))
     {
-        availablePoints = availablePoints - newRewards.getGiftValue();
+        if(retrievePoints(customerID) > newRewards.getGiftValue())
+        {
+            
+        }
     }
     else
     {
-        cout << "You do not have enough reward points for this gift.";
+        cout << "This is an invalid Customer ID" << endl;
     }
 
 }
