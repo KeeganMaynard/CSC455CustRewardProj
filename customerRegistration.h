@@ -61,9 +61,9 @@ public:
     customer(){};
 
     // vectors to store previously entered values - to make sure they are unique
-    vector<string> previousIDs;
-    vector<string> previousUN;
-    vector<string> previousCCN;
+    vector<string> previousIDsList;
+    vector<string> previousUNList;
+    vector<string> previousCCNList;
 
     // setter functions
     void setCustID(string newID) { custID = newID; }
@@ -222,5 +222,9 @@ void logNewUser(customer &newCust)
     customersLog << "customer " << newCust.getCount() << " credit card number " << newCust.getCCN() << endl;
     customersLog << "customer " << newCust.getCount() << " total reward points " << newCust.getPoints() << "\n\n";
     customersLog.close();
+}
+
+bool previousID(string userID)
+{
 }
 #endif
