@@ -227,4 +227,16 @@ void logNewUser(customer &newCust)
 bool previousID(string userID)
 {
 }
+
+bool previousUserName(string userName)
+{
+}
+
+bool previousCCNum(string ccN)
+{
+}
+
+int retrievePoints(string lookUpID)
+{
+}
 #endif
