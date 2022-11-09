@@ -42,6 +42,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <regex>
 using namespace std;
 
 class customer
@@ -55,12 +56,14 @@ private:
     string custCC;
     int custPoints;
     int custCount;
-    vector<string> previousIDs;
-    vector<string> previousUN;
-    vector<string> previousCCN;
 
 public:
     customer(){};
+
+    // vectors to store previously entered values - to make sure they are unique
+    vector<string> previousIDs;
+    vector<string> previousUN;
+    vector<string> previousCCN;
 
     // setter functions
     void setCustID(string newID) { custID = newID; }
@@ -132,7 +135,15 @@ string inputFName()
     string newFName = "";
     cout << "Enter your first name: ";
     getline(cin, newFName);
-    return newFName;
+    if (newFName.length() <= 15 && regex_match(newFName, regex("^[A-Za-z]+$")))
+    {
+        return newFName;
+    }
+    else
+    {
+        cout << "The name must be less than 15 characters and cannot contain numbers or special characters" << endl;
+        inputFName();
+    }
 }
 
 string inputLName()
@@ -140,7 +151,15 @@ string inputLName()
     string newLName = "";
     cout << "Enter your last name: ";
     getline(cin, newLName);
-    return newLName;
+    if (newLName.length() <= 15 && regex_match(newLName, regex("^[A-Za-z]+$")))
+    {
+        return newLName;
+    }
+    else
+    {
+        cout << "The name must be less than 15 characters and cannot contain numbers or special characters" << endl;
+        inputLName();
+    }
 }
 
 string inputDOB()
