@@ -11,7 +11,9 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <map>
 using namespace std;
+
 class rewards
 {
 public:
@@ -20,6 +22,7 @@ public:
     int giftValue;
     int moneySpent;
     int pointsEarned;
+   
 
 };
 //Declaration and Assignment of the Variables
@@ -161,6 +164,16 @@ bool validatePointsEarned(int newPointsEarned)
     {
         return false;
     }
+}
+
+void redeemRewards(customer newCustomer, rewards newRewards)
+{
+    int availablePoints = newCustomer.getPoints();
+    if (availablePoints > newRewards.giftValue)
+    {
+        availablePoints = availablePoints - newRewards.giftValue;
+    }
+
 }
 
 
