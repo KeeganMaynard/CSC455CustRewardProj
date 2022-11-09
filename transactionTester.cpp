@@ -14,16 +14,13 @@
 #include <iostream>
 #include <string>
 
-#include "customerRegistration.h"
-#include "productManagement.h"
-#include "rewardManagement.h"
 #include "transaction.h"
 using namespace std;
 
 int main() {
   vector<string> productIDs;
   for (int i = 0; i < 10; i++) {
-    productIDs.push_back("test_" + i);
+    productIDs.push_back("t" + to_string(i));
   }
   transaction test1("test", "test", productIDs, 1.4, 10);
   transaction test2("test2", "test2", productIDs, 2.4, 11);
