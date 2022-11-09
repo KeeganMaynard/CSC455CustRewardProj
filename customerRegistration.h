@@ -184,7 +184,15 @@ int inputPoints()
     cout << "Enter your current rewards points: ";
     getline(cin, newPoints);
     int convert = stoi(newPoints);
-    return convert;
+    if (convert > 0)
+    {
+        return convert;
+    }
+    else
+    {
+        cout << "The current rewards points must be greater than 0" << endl;
+        inputPoints();
+    }
 }
 
 int incCount()
