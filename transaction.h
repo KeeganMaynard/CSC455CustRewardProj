@@ -49,26 +49,6 @@ class transaction {
   void setRewardPoints(int rPoints) { rewardPoints = rPoints; }
 };
 
-/*
-  This function handles reading from and writing to files for the transaction
-  system Parameters: boolean option: option to read or write files, 1 being read
-  0 being write string file: the file to be read or wrote too vecto
-
-  */
-vector<transaction> readWriteFiles(bool option, string file,
-                                   vector<transaction> transactions) {
-  fstream myFile;
-
-  // reading
-  if (option == 1) {
-    vector<transaction> transactionList;
-    myFile.open(file);
-  }
-  // writing
-  else if (option == 0) {
-  }
-}
-
 vector<string> readFile(string file) {
   fstream myFile;
   string line;
