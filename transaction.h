@@ -71,20 +71,20 @@ vector<string> processProductIDs(string line) {
   return pIDs;
 }
 
-// vector<transaction> createTransactions(vector<string> lines) {
-//   transaction t;
-//   vector<transaction> transactions;
-//   int transactionCount = lines.size() % 6;
-//   for (int j = 0; j <= lines.size(); j += 6) {
-//     t.transactionID = lines[j];
-//     t.userID = lines[j + 1];
-//     t.productIDs = processProductIDs(lines[j + 2]);
-//     t.totalAmount = stof(lines[j + 3]);
-//     t.rewardPoints = stoi(lines[j + 4]);
-//     transactions.push_back(t);
-//   }
-//   return transactions;
-// }
+vector<transaction> createTransactions(vector<string> lines) {
+  transaction t;
+  vector<transaction> transactions;
+  int transactionCount = lines.size() % 6;
+  for (int j = 0; j <= lines.size(); j += 6) {
+    t.transactionID = lines[j];
+    t.userID = lines[j + 1];
+    t.productIDs = processProductIDs(lines[j + 2]);
+    t.totalAmount = stof(lines[j + 3]);
+    t.rewardPoints = stoi(lines[j + 4]);
+    transactions.push_back(t);
+  }
+  return transactions;
+}
 
 string toString(vector<string> ids) {
   string finalString = "";
