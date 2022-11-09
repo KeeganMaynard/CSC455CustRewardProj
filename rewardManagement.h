@@ -16,24 +16,35 @@ using namespace std;
 
 class rewards
 {
-public:
-    rewards();
+private:
     string gift;
     int giftValue;
     int moneySpent;
     int pointsEarned;
    
+public:
+    rewards(){};
+    void setGift(string newGift) { gift = newGift; }
+    void setGiftValue(int newGiftValue) { giftValue = newGiftValue; }
+    void setMoneySpent(int newMoneySpent) { moneySpent = newMoneySpent; }
+    void setPointsEarned(int newPointsEarned) { pointsEarned = newPointsEarned; }
 
+    string getGift() { return gift; }
+    int getGiftValue() { return giftValue; }
+    int getMoneySpent() { return moneySpent; }
+    int getPointsEarned() { return pointsEarned; }
 };
+
 //Declaration and Assignment of the Variables
 void rewardValues()
 {
-   rewards newRewards;
-   newRewards.gift = inputGift();
-   newRewards.giftValue = inputGiftValue();
-   newRewards.moneySpent = inputMoneySpent();
-   newRewards.pointsEarned = inputPointsEarned();
-   rewardDatabase(newRewards);
+    rewards newRewards;
+
+    newRewards.setGift(inputGift());
+    newRewards.setGiftValue(inputGiftValue());
+    newRewards.setMoneySpent(inputMoneySpent());
+    newRewards.setPointsEarned(inputPointsEarned());
+    logRewards(newRewards);
 }
 
 string inputGift()
@@ -106,11 +117,17 @@ int inputPointsEarned()
 
 
 //Writing of the values to the database
-void rewardDatabase(rewards rewardLog)
+void logRewards(rewards &newRewards)
 {
-    ofstream rewardsLog("rewards.txt");
-    rewardsLog << "Reward Gift: " << rewardLog.gift << " Gift Cost: " << rewardLog.giftValue << endl;
-    rewardsLog << "Money Spent by Customer: " << rewardLog.moneySpent << " Reward Points Earned: " << rewardLog.pointsEarned << endl;
+    fstream log;
+    log.open("rewards.txt", fstream::app);
+    if(log.is_open())
+    {
+        log << "Rewards Gift Item: " << newRewards.getGift() << endl;
+        log << "Reward Gift Cost: " << newRewards.getGiftValue() << endl;
+        log << "Customer Total Spending: " << newRewards.getMoneySpent() << endl;
+        log << "Customer Points Earned: " << newRewards.getPointsEarned() << endl;
+    }
 
 }
  
@@ -169,9 +186,13 @@ bool validatePointsEarned(int newPointsEarned)
 void redeemRewards(customer newCustomer, rewards newRewards)
 {
     int availablePoints = newCustomer.getPoints();
-    if (availablePoints > newRewards.giftValue)
+    if (availablePoints > newRewards.getGiftValue())
     {
-        availablePoints = availablePoints - newRewards.giftValue;
+        availablePoints = availablePoints - newRewards.getGiftValue();
+    }
+    else
+    {
+        cout << "You do not have enough reward points for this gift.";
     }
 
 }
