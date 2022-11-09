@@ -7,20 +7,30 @@
 */
 #ifndef REWARDMANAGEMENT_H
 #define REWARDMANAGEMENT_H
+#include "customerRegistration.h"
 #include <iostream>
 #include <string>
 #include <fstream>
 using namespace std;
+class rewards
+{
+public:
+    rewards();
+    string gift;
+    int giftValue;
+    int moneySpent;
+    int pointsEarned;
 
+};
 //Declaration and Assignment of the Variables
 void rewardValues()
 {
-   string gift;
-   int giftValue, moneySpent, pointsEarned;
-   gift = inputGift();
-   giftValue = inputGiftValue();
-   moneySpent = inputMoneySpent();
-   pointsEarned = inputPointsEarned();
+   rewards newRewards;
+   newRewards.gift = inputGift();
+   newRewards.giftValue = inputGiftValue();
+   newRewards.moneySpent = inputMoneySpent();
+   newRewards.pointsEarned = inputPointsEarned();
+   rewardDatabase(newRewards);
 }
 
 string inputGift()
@@ -93,11 +103,11 @@ int inputPointsEarned()
 
 
 //Writing of the values to the database
-void rewardDatabase(string gift, int giftValue, int moneySpent, int pointsEarned)
+void rewardDatabase(rewards rewardLog)
 {
     ofstream rewardsLog("rewards.txt");
-    rewardsLog << "Reward Gift: " << gift << " Gift Cost: " << giftValue << endl;
-    rewardsLog << "Money Spent by Customer: " << moneySpent << " Reward Points Earned: " << pointsEarned << endl;
+    rewardsLog << "Reward Gift: " << rewardLog.gift << " Gift Cost: " << rewardLog.giftValue << endl;
+    rewardsLog << "Money Spent by Customer: " << rewardLog.moneySpent << " Reward Points Earned: " << rewardLog.pointsEarned << endl;
 
 }
  
