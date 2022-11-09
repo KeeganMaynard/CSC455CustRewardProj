@@ -41,214 +41,151 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <vector>
 using namespace std;
-
-int custCount = 1;
 
 class customer
 {
-public:
-    customer();
-
+private:
+    string custID;
     string username;
     string fname;
     string lname;
-    string dob;
-    string ccNum;
-    string custID;
-    string rewardPoints;
-    int customNum;
+    string custDOB;
+    string custCC;
+    int custPoints;
+    int custCount;
+    vector<string> previousIDs;
+    vector<string> previousUN;
+    vector<string> previousCCN;
+
+public:
+    customer(){};
+
+    // setter functions
+    void setCustID(string newID) { custID = newID; }
+    void setUserName(string newUser) { username = newUser; }
+    void setFName(string newFirst) { fname = newFirst; }
+    void setLName(string newLast) { lname = newLast; }
+    void setDOB(string newDOB) { custDOB = newDOB; }
+    void setCC(string newCCN) { custCC = newCCN; }
+    void setPoints(int newPoints) { custPoints = newPoints; }
+    void setCount(int newCount) { custCount = newCount; }
+
+    // getter functions
+    string getCustID() { return custID; }
+    string getUserName() { return username; }
+    string getFName() { return fname; }
+    string getLName() { return lname; }
+    string getDOB() { return custDOB; }
+    string getCCN() { return custCC; }
+    int getPoints() { return custPoints; }
+    int getCount() { return custCount; }
 };
 
 void registerUser()
 {
     customer newCustomer;
 
-    newCustomer.username = inputUsername();
-    newCustomer.fname = inputFirstName();
-    newCustomer.lname = inputLastName();
-    newCustomer.dob = inputDOB();
-    newCustomer.ccNum = inputCreditCard();
-    newCustomer.rewardPoints = inputPoints();
-    newCustomer.custID = assignId();
+    newCustomer.setCustID(generateID());
+    newCustomer.setUserName(inputUsername());
+    newCustomer.setFName(inputFName());
+    newCustomer.setLName(inputLName());
+    newCustomer.setDOB(inputDOB());
+    newCustomer.setCC(inputCCN());
+    newCustomer.setPoints(inputPoints());
+    newCustomer.setCount(incCount());
     logNewUser(newCustomer);
 }
 
-void removeUser()
+void searchCustomer()
 {
-    string delCustomer;
-    cout << "Enter the customer ID that you wish to remove: ";
-    cin >> delCustomer;
+    string lookUp;
+    cout << "Enter the customer ID for the customer you wish to search: ";
+    getline(cin, lookUp);
 }
 
-void lookUpUser()
+void removeCustomer()
 {
+    string findCust;
+    cout << "Enter the customer ID for the customer you wish to remove: ";
+    getline(cin, findCust);
+}
+
+string generateID()
+{
+    string newID = "CID";
+    // attach 10 digits at the end
+    return newID;
 }
 
 string inputUsername()
 {
-    string username = "";
+    string newUserName = "";
     cout << "Enter your username: ";
-    cin >> username;
-    if (validateUserName(username))
-    {
-        return username;
-    }
-    else
-    {
-        // call inputUsername again to
-        if (isUnique(username))
-        {
-            cout << "The username must be 8 characters followed by at most 3 numbers" << endl;
-        }
-        else
-        {
-            cout << "This username already exists" << endl;
-        }
-        inputUsername();
-    }
+    getline(cin, newUserName);
+    return newUserName;
 }
 
-string inputFirstName()
+string inputFName()
 {
-    string firstname = "";
+    string newFName = "";
     cout << "Enter your first name: ";
-    cin >> firstname;
-    if (validateName(firstname))
-    {
-        return firstname;
-    }
-    else
-    {
-        cout << "The name cannot be longer than 15 characters" << endl;
-        cout << "The name cannot contain any numbers or special characters" << endl;
-        inputFirstName();
-    }
+    getline(cin, newFName);
+    return newFName;
 }
 
-string inputLastName()
+string inputLName()
 {
-    string lastname = "";
+    string newLName = "";
     cout << "Enter your last name: ";
-    cin >> lastname;
-    if (validateName(lastname))
-    {
-        return lastname;
-    }
-    else
-    {
-        cout << "The name cannot be longer than 15 characters" << endl;
-        cout << "The name cannot contain any numbers or special characters" << endl;
-        inputLastName();
-    }
+    getline(cin, newLName);
+    return newLName;
 }
 
 string inputDOB()
 {
-    string dob;
-    cout << "Enter your date of birth (MM-DD-YYYY): ";
-    cin >> dob;
-    if (validateDOB(dob))
-    {
-        return dob;
-    }
-    else
-    {
-        cout << "The date of birth must follow the MM-DD-YYYY format" << endl;
-        cout << "MM, DD, and YYYY must be numbers" << endl;
-        inputDOB();
-    }
+    string newDOB = "";
+    cout << "Enter your date of birth: ";
+    getline(cin, newDOB);
+    return newDOB;
 }
 
-string inputCreditCard()
+string inputCCN()
 {
-    string cc;
+    string newCCN = "";
     cout << "Enter your credit card number: ";
-    cin >> cc;
-    if (validateCreditCard(cc))
-    {
-        return cc;
-    }
-    else
-    {
-        if (isUnique(cc))
-        {
-            cout << "The credit card number must follow the xxxx-xxxx-xxxx format" << endl;
-            cout << "The credit card number values must be numbers" << endl;
-        }
-        else
-        {
-            cout << "This credit card number already exists" << endl;
-        }
-        inputCreditCard();
-    }
+    getline(cin, newCCN);
+    return newCCN;
 }
 
-string inputPoints()
+int inputPoints()
 {
-    string points;
-    cout << "Enter your current reward points: ";
-    cin >> points;
-    if (validatePoints(points))
-    {
-        assignId();
-    }
-    else
-    {
-        cout << "The reward points must be a positive number" << endl;
-        inputPoints();
-    }
+    string newPoints = "";
+    cout << "Enter your current rewards points: ";
+    getline(cin, newPoints);
+    int convert = stoi(newPoints);
+    return convert;
 }
 
-string assignId()
+int incCount()
 {
-    // assign the user an ID - only after their inputs have been
-    string newID = "CID";
-    // attach 10 digits to end of newID
+
+    return 0;
 }
 
-void logNewUser(customer logCustomer)
+// pass the instance of customer to the log function
+void logNewUser(customer &newCust)
 {
     // log the new user into customers.txt
     ofstream customersLog("customers.txt");
-    customersLog << "customer " << custCount << " ID " << logCustomer.custID << endl;
-    customersLog << "customer " << custCount << " user name " << logCustomer.username << endl;
-    customersLog << "customer " << custCount << " first name " << logCustomer.fname << endl;
-    customersLog << "customer " << custCount << " last name " << logCustomer.lname << endl;
-    customersLog << "customer " << custCount << " date of birth " << logCustomer.dob << endl;
-    customersLog << "customer " << custCount << " credit card number " << logCustomer.ccNum << endl;
-    customersLog << "customer " << custCount << " total reward points " << logCustomer.rewardPoints << endl;
-    custCount += custCount;
+    customersLog << "customer " << newCust.getCount() << " ID " << newCust.getCustID() << endl;
+    customersLog << "customer " << newCust.getCount() << " user name " << newCust.getUserName() << endl;
+    customersLog << "customer " << newCust.getCount() << " first name " << newCust.getFName() << endl;
+    customersLog << "customer " << newCust.getCount() << " last name " << newCust.getLName() << endl;
+    customersLog << "customer " << newCust.getCount() << " date of birth " << newCust.getDOB() << endl;
+    customersLog << "customer " << newCust.getCount() << " credit card number " << newCust.getCCN() << endl;
+    customersLog << "customer " << newCust.getCount() << " total reward points " << newCust.getPoints() << "\n\n";
+    customersLog.close();
 }
-
-bool isUnique(string newValue)
-{
-    return true;
-}
-
-bool validateUserName(string newUserName)
-{
-    return true;
-}
-
-bool validateName(string newName)
-{
-    return true;
-}
-
-bool validateDOB(string newDob)
-{
-    return true;
-}
-
-bool validateCreditCard(string newCreditCard)
-{
-    return true;
-}
-
-bool validatePoints(string newPoints)
-{
-    return true;
-}
-
 #endif
