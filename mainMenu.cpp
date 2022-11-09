@@ -33,7 +33,7 @@ int main()
             registerUser();
             break;
         case 2:
-            removeUser();
+            removeCustomer();
             break;
         case 3:
             break;
@@ -42,7 +42,7 @@ int main()
         case 5:
             break;
         case 6:
-            lookUpUser();
+            searchCustomer();
             break;
         case 7:
             break;
