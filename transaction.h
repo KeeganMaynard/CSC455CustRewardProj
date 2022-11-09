@@ -16,6 +16,7 @@ class transaction {
   vector<string> productIDs;
   float totalAmount;
   int rewardPoints;
+  string toString(vector<string> ids);
   transaction() {}
 
   transaction(string tID, string uID, vector<string> pIDs, float tAmount,
@@ -83,4 +84,27 @@ vector<transaction> createTransactions(vector<string> lines) {
     transactions.push_back(t);
   }
   return transactions;
+}
+
+void writeTransactions(vector<transaction> transactions) {
+  fstream myFile;
+  myFile.open("transactions.txt", ios::app);
+  for (int i = 0; i <= transactions.size(); i++) {
+    myFile << transactions[i].transactionID << endl;
+    myFile << transactions[i].userID << endl;
+    myFile << toString(transactions[i].productIDs) << endl;
+    myFile << transactions[i].totalAmount << endl;
+    myFile << transactions[i].rewardPoints << endl;
+  }
+}
+
+string toString(vector<string> ids) {
+  string finalString = "";
+  for (int i = 0; i < ids.size(); i++) {
+    if (i != ids.size() - 1) {
+      finalString += ids[i] + ",";
+    } else {
+      finalString += ids[i];
+    }
+  }
 }
