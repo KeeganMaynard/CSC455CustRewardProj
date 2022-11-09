@@ -167,7 +167,15 @@ string inputDOB()
     string newDOB = "";
     cout << "Enter your date of birth: ";
     getline(cin, newDOB);
-    return newDOB;
+    if (regex_match(newDOB, regex("^(1[0-2]|0[1-9])/(3[01]|[12][0-9]|0[1-9])/[0-9]{4}$")))
+    {
+        return newDOB;
+    }
+    else
+    {
+        cout << "The date of birth must be entered in the MM-DD-YYYY format" << endl;
+        inputDOB();
+    }
 }
 
 string inputCCN()
