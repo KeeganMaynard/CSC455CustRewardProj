@@ -11,18 +11,18 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <map>
+#include <sstream>
+#include <vector>
 using namespace std;
 
 class rewards
 {
-private:
+public:
     string gift;
     int giftValue;
     int moneySpent;
     int pointsEarned;
-   
-public:
+
     rewards(){};
     void setGift(string newGift) { gift = newGift; }
     void setGiftValue(int newGiftValue) { giftValue = newGiftValue; }
@@ -44,7 +44,7 @@ void rewardValues()
     newRewards.setGiftValue(inputGiftValue());
     newRewards.setMoneySpent(inputMoneySpent());
     newRewards.setPointsEarned(inputPointsEarned());
-    logRewards(newRewards);
+    //logRewards(newRewards);
 }
 
 string inputGift()
@@ -117,6 +117,7 @@ int inputPointsEarned()
 
 
 //Writing of the values to the database
+/*
 void logRewards(rewards &newRewards)
 {
     fstream log;
@@ -130,7 +131,7 @@ void logRewards(rewards &newRewards)
     }
 
 }
- 
+*/
 bool validateGift(string newGift)
 {
     return true;
@@ -182,17 +183,74 @@ bool validatePointsEarned(int newPointsEarned)
         return false;
     }
 }
+vector<string> readFile(string file) {
+  fstream myFile;
+  string line;
+  myFile.open(file);
+  vector<string> lines;
+  myFile.open(file);
+  while (getline(myFile, line)) {
+    lines.push_back(line);
+  }
+  return lines;
+}
 
-void redeemRewards(rewards &newRewards)
+
+vector<rewards> createRewards(vector<string> lines) {
+  rewards r;
+  string s1 = to_string(r.giftValue);
+  string s2 = to_string(r.moneySpent);
+  vector<rewards> rewardVector;
+  int transactionCount = lines.size() % 5;
+  for (int j = 0; j <= lines.size(); j += 5) {
+    r.gift = lines[j];
+    s1 = lines[j + 1];
+    s2= lines[j + 2];
+    r.pointsEarned = stof(lines[j + 3]);
+    rewardVector.push_back(r);
+  }
+  return rewardVector;
+}
+
+
+string toString(vector<string> ids) {
+  string finalString = "";
+  for (int i = 0; i < ids.size(); i++) {
+    if (i != ids.size() - 1) {
+      finalString += ids[i] + ",";
+    } else {
+      finalString += ids[i];
+    }
+  }
+  cout << finalString << endl;
+  return finalString;
+}
+
+void writeTransactions(vector<rewards> rewardVector) {
+  fstream myFile;
+  myFile.open("rewards.txt", ios::app);
+  for (int i = 0; i <= rewardVector.size(); i++) {
+    myFile << rewardVector[i].gift << endl;
+    myFile << rewardVector[i].giftValue << endl;
+    myFile << rewardVector[i].moneySpent << endl;
+    myFile << rewardVector[i].pointsEarned << endl;
+  }
+}
+
+void redeemRewards(vector<rewards> rewardVector)
 {
     string customerID;
     cout << "Enter in your customer ID: " << endl;
     cin >> customerID;
     if(previousID(customerID))
     {
-        if(retrievePoints(customerID) > newRewards.getGiftValue())
+        if(retrievePoints(customerID) > rewardVector[1].giftValue )
         {
-            
+            int newValue = retrievePoints(customerID) - rewardVector[1].giftValue;
+        }
+        else
+        {
+            cout << "You do not have enough reward points for this gift" << endl;
         }
     }
     else
