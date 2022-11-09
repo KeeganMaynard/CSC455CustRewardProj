@@ -10,14 +10,12 @@
 #include <vector>
 using namespace std;
 class transaction {
- private:
+ public:
   string transactionID;
   string userID;
   vector<string> productIDs;
   float totalAmount;
   int rewardPoints;
-
- public:
   transaction() {}
 
   transaction(string tID, string uID, vector<string> pIDs, float tAmount,
