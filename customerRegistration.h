@@ -30,9 +30,7 @@ public:
     bool custCCNPresent(string);
     bool custUNPresent(string);
 
-    // utility functions
-    void initilize();
-    void shutDown();
+    // User function
     void registerUser();
     void searchCustomer();
     void removeCustomer();
@@ -43,10 +41,15 @@ public:
     string inputDOB();
     string inputCCN();
     int inputPoints();
-    void logNewUser(customer &);
+
+    // utility functions
+    void initilize();
+    void parseData(string);
+    void logNewUser(int);
     bool matchCCRegex(string);
     string attachNums(int);
     int retrievePoints(string);
+    void displayCustData(int);
 
     // setter functions
     void setCustID(string newID) { custID = newID; }
@@ -82,7 +85,7 @@ void customer::registerUser()
 
     // add the new customer to the list of customers
     customers.push_back(newCustomer);
-    logNewUser(newCustomer);
+    logNewUser(customers.size());
 }
 
 void customer::searchCustomer()
@@ -98,7 +101,7 @@ void customer::searchCustomer()
         {
             if (customers[i].custID.compare(lookUp))
             {
-                // create function to print lines
+                displayCustData(i);
             }
             else
             { /*No need to catch else statement*/
@@ -138,9 +141,70 @@ void customer::removeCustomer()
     }
 }
 
+// Function to read the file and fill up the vector
 void customer::initilize()
 {
-    // Function to read the file and fill up the vector
+    ifstream customersLog;
+    customersLog.open("customers.txt");
+
+    if (customersLog.is_open())
+    {
+        string line;
+        string temp;
+        string buffer;
+        while (getline(customersLog, line))
+        {
+            // parse data gathered from line
+            if (!line.empty()) // Break on empty line
+            {
+                temp = line.substr(line.find_last_of(' ') + 1, line.length());
+                buffer = buffer + temp + " ";
+            }
+            else
+            {
+                parseData(buffer);
+            }
+        }
+        customersLog.close();
+    }
+    else
+    {
+        cout << "Error reading customers log file. Please ensure the file is attached to store customer information." << endl;
+    }
+}
+
+void customer::parseData(string line)
+{
+    string loadID, loadUN, loadFirst, loadLast, loadDOB, loadCC, loadPoints;
+    customer loadCust;
+    loadID = line.substr(0, line.find_first_of(' '));
+    loadCust.setCustID(loadID);
+
+    line = line.substr(line.find_first_of(' ') + 1, line.length());
+    loadUN = line.substr(0, line.find_first_of(' '));
+    loadCust.setUserName(loadUN);
+
+    line = line.substr(line.find_first_of(' ') + 1, line.length());
+    loadFirst = line.substr(0, line.find_first_of(' '));
+    loadCust.setFName(loadFirst);
+
+    line = line.substr(line.find_first_of(' ') + 1, line.length());
+    loadLast = line.substr(0, line.find_first_of(' '));
+    loadCust.setLName(loadLast);
+
+    line = line.substr(line.find_first_of(' ') + 1, line.length());
+    loadDOB = line.substr(0, line.find_first_of(' '));
+    loadCust.setDOB(loadDOB);
+
+    line = line.substr(line.find_first_of(' ') + 1, line.length());
+    loadCC = line.substr(0, line.find_first_of(' '));
+    loadCust.setCC(loadCC);
+
+    line = line.substr(line.find_first_of(' ') + 1, line.length());
+    loadPoints = line.substr(0, line.find_first_of(' ') - 1);
+    loadCust.setPoints(stoi(loadPoints));
+
+    customers.push_back(loadCust);
 }
 
 string customer::generateID()
@@ -274,19 +338,23 @@ int customer::inputPoints()
     }
 }
 
-// pass the instance of customer to the log function
-// update to append instead of write
-void customer::logNewUser(customer &newCust)
+// append the last customer in the vector to the txt file
+void customer::logNewUser(int custNum)
 {
+    // open the log file and set to append data
+    ofstream customersLog;
+    customersLog.open("customers.txt", ios::app);
+
     // log the new user into customers.txt
-    ofstream customersLog("customers.txt");
-    customersLog << "customer " << customers.size() << " ID " << newCust.getCustID() << endl;
-    customersLog << "customer " << customers.size() << " user name " << newCust.getUserName() << endl;
-    customersLog << "customer " << customers.size() << " first name " << newCust.getFName() << endl;
-    customersLog << "customer " << customers.size() << " last name " << newCust.getLName() << endl;
-    customersLog << "customer " << customers.size() << " date of birth " << newCust.getDOB() << endl;
-    customersLog << "customer " << customers.size() << " credit card number " << newCust.getCCN() << endl;
-    customersLog << "customer " << customers.size() << " total reward points " << newCust.getPoints() << "\n\n";
+    customersLog << "customer " << customers.size() << " ID " << customers[custNum].custID << endl;
+    customersLog << "customer " << customers.size() << " user name " << customers[custNum].username << endl;
+    customersLog << "customer " << customers.size() << " first name " << customers[custNum].fname << endl;
+    customersLog << "customer " << customers.size() << " last name " << customers[custNum].lname << endl;
+    customersLog << "customer " << customers.size() << " date of birth " << customers[custNum].custDOB << endl;
+    customersLog << "customer " << customers.size() << " credit card number " << customers[custNum].custCC << endl;
+    customersLog << "customer " << customers.size() << " total reward points " << customers[custNum].custPoints << "\n\n";
+
+    // close the log file
     customersLog.close();
 }
 
@@ -401,5 +469,16 @@ int customer::retrievePoints(string lookupID)
     }
 
     return 0;
+}
+
+void customer::displayCustData(int custNum)
+{
+    cout << "customer " << custNum << " " << customers[custNum].custID << endl;
+    cout << "customer " << custNum << " " << customers[custNum].username << endl;
+    cout << "customer " << custNum << " " << customers[custNum].fname << endl;
+    cout << "customer " << custNum << " " << customers[custNum].lname << endl;
+    cout << "customer " << custNum << " " << customers[custNum].custDOB << endl;
+    cout << "customer " << custNum << " " << customers[custNum].custCC << endl;
+    cout << "customer " << custNum << " " << customers[custNum].custPoints << endl;
 }
 #endif
