@@ -20,6 +20,8 @@ using namespace std;
 
 int main()
 {
+    customer cust;
+    cust.initilize();
     bool run = true;
     while (run)
     {
@@ -30,10 +32,10 @@ int main()
         switch (stoi(option))
         {
         case 1:
-            registerUser();
+            cust.registerUser();
             break;
         case 2:
-            removeCustomer();
+            cust.removeCustomer();
             break;
         case 3:
             break;
@@ -42,7 +44,7 @@ int main()
         case 5:
             break;
         case 6:
-            searchCustomer();
+            cust.searchCustomer();
             break;
         case 7:
             break;

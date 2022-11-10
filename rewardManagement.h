@@ -35,7 +35,7 @@ public:
     int getPointsEarned() { return pointsEarned; }
 };
 
-//Declaration and Assignment of the Variables
+// Declaration and Assignment of the Variables
 void rewardValues()
 {
     rewards newRewards;
@@ -44,7 +44,7 @@ void rewardValues()
     newRewards.setGiftValue(inputGiftValue());
     newRewards.setMoneySpent(inputMoneySpent());
     newRewards.setPointsEarned(inputPointsEarned());
-    //logRewards(newRewards);
+    // logRewards(newRewards);
 }
 
 string inputGift()
@@ -77,8 +77,6 @@ int inputGiftValue()
         cout << "Please enter a positive numerical value.";
         inputGiftValue();
     }
-    
-
 }
 
 int inputMoneySpent()
@@ -95,7 +93,6 @@ int inputMoneySpent()
         cout << "Please enter a positive numerical value.";
         inputMoneySpent();
     }
-
 }
 
 int inputPointsEarned()
@@ -111,12 +108,9 @@ int inputPointsEarned()
     {
         cout << "Please eter a positive numerical value. ";
     }
-
 }
 
-
-
-//Writing of the values to the database
+// Writing of the values to the database
 /*
 void logRewards(rewards &newRewards)
 {
@@ -139,10 +133,10 @@ bool validateGift(string newGift)
 
 bool validateGiftValue(int newGiftValue)
 {
-    if(isdigit(newGiftValue))
+    if (isdigit(newGiftValue))
     {
-        if(newGiftValue > 0)
-        {    
+        if (newGiftValue > 0)
+        {
             return true;
         }
     }
@@ -150,15 +144,14 @@ bool validateGiftValue(int newGiftValue)
     {
         return false;
     }
-   
 }
 
 bool validateMoneySpent(int newMoneySpent)
 {
-    if(isdigit(newMoneySpent))
+    if (isdigit(newMoneySpent))
     {
-        if(newMoneySpent > 0)
-        {    
+        if (newMoneySpent > 0)
+        {
             return true;
         }
     }
@@ -166,15 +159,14 @@ bool validateMoneySpent(int newMoneySpent)
     {
         return false;
     }
-   
 }
 
 bool validatePointsEarned(int newPointsEarned)
 {
-    if(isdigit(newPointsEarned))
+    if (isdigit(newPointsEarned))
     {
-        if(newPointsEarned > 0)
-        {    
+        if (newPointsEarned > 0)
+        {
             return true;
         }
     }
@@ -183,70 +175,80 @@ bool validatePointsEarned(int newPointsEarned)
         return false;
     }
 }
-vector<string> readFile(string file) {
-  fstream myFile;
-  string line;
-  myFile.open(file);
-  vector<string> lines;
-  myFile.open(file);
-  while (getline(myFile, line)) {
-    lines.push_back(line);
-  }
-  return lines;
-}
-
-
-vector<rewards> createRewards(vector<string> lines) {
-  rewards r;
-  string s1 = to_string(r.giftValue);
-  string s2 = to_string(r.moneySpent);
-  vector<rewards> rewardVector;
-  int transactionCount = lines.size() % 5;
-  for (int j = 0; j <= lines.size(); j += 5) {
-    r.gift = lines[j];
-    s1 = lines[j + 1];
-    s2= lines[j + 2];
-    r.pointsEarned = stof(lines[j + 3]);
-    rewardVector.push_back(r);
-  }
-  return rewardVector;
-}
-
-
-string toString(vector<string> ids) {
-  string finalString = "";
-  for (int i = 0; i < ids.size(); i++) {
-    if (i != ids.size() - 1) {
-      finalString += ids[i] + ",";
-    } else {
-      finalString += ids[i];
+vector<string> readFile(string file)
+{
+    fstream myFile;
+    string line;
+    myFile.open(file);
+    vector<string> lines;
+    myFile.open(file);
+    while (getline(myFile, line))
+    {
+        lines.push_back(line);
     }
-  }
-  cout << finalString << endl;
-  return finalString;
+    return lines;
 }
 
-void writeTransactions(vector<rewards> rewardVector) {
-  fstream myFile;
-  myFile.open("rewards.txt", ios::app);
-  for (int i = 0; i <= rewardVector.size(); i++) {
-    myFile << rewardVector[i].gift << endl;
-    myFile << rewardVector[i].giftValue << endl;
-    myFile << rewardVector[i].moneySpent << endl;
-    myFile << rewardVector[i].pointsEarned << endl;
-  }
+vector<rewards> createRewards(vector<string> lines)
+{
+    rewards r;
+    string s1 = to_string(r.giftValue);
+    string s2 = to_string(r.moneySpent);
+    vector<rewards> rewardVector;
+    int transactionCount = lines.size() % 5;
+    for (int j = 0; j <= lines.size(); j += 5)
+    {
+        r.gift = lines[j];
+        s1 = lines[j + 1];
+        s2 = lines[j + 2];
+        r.pointsEarned = stof(lines[j + 3]);
+        rewardVector.push_back(r);
+    }
+    return rewardVector;
+}
+
+string toString(vector<string> ids)
+{
+    string finalString = "";
+    for (int i = 0; i < ids.size(); i++)
+    {
+        if (i != ids.size() - 1)
+        {
+            finalString += ids[i] + ",";
+        }
+        else
+        {
+            finalString += ids[i];
+        }
+    }
+    cout << finalString << endl;
+    return finalString;
+}
+
+void writeTransactions(vector<rewards> rewardVector)
+{
+    fstream myFile;
+    myFile.open("rewards.txt", ios::app);
+    for (int i = 0; i <= rewardVector.size(); i++)
+    {
+        myFile << rewardVector[i].gift << endl;
+        myFile << rewardVector[i].giftValue << endl;
+        myFile << rewardVector[i].moneySpent << endl;
+        myFile << rewardVector[i].pointsEarned << endl;
+    }
 }
 
 void redeemRewards(vector<rewards> rewardVector)
 {
+    customer cust;
     string customerID;
     cout << "Enter in your customer ID: " << endl;
     cin >> customerID;
-    if(previousID(customerID))
+    if (cust.custIdPresent(customerID))
     {
-        if(retrievePoints(customerID) > rewardVector[1].giftValue )
+        if (cust.retrievePoints(customerID) > rewardVector[1].giftValue)
         {
-            int newValue = retrievePoints(customerID) - rewardVector[1].giftValue;
+            int newValue = cust.retrievePoints(customerID) - rewardVector[1].giftValue;
         }
         else
         {
@@ -257,12 +259,6 @@ void redeemRewards(vector<rewards> rewardVector)
     {
         cout << "This is an invalid Customer ID" << endl;
     }
-
 }
-
-
-
-
-
 
 #endif
