@@ -1,4 +1,5 @@
-/*Customer registration class - will connect with mainMenu.cpp
+/*Customer registration class
+    author - Keegan Maynard
  */
 #ifndef CUSTOMERREGISTRATION_H
 #define CUSTOMERREGISTRATION_H
@@ -31,13 +32,20 @@ public:
 
     // utility functions
     void initilize();
+    void shutDown();
     void registerUser();
     void searchCustomer();
     void removeCustomer();
     string generateID();
     string inputUsername();
+    string inputFName();
+    string inputLName();
+    string inputDOB();
     string inputCCN();
+    int inputPoints();
     void logNewUser(customer &);
+    bool matchCCRegex(string);
+    string attachNums(int);
     int retrievePoints(string);
 
     // setter functions
@@ -86,6 +94,16 @@ void customer::searchCustomer()
     if (custIdPresent(lookUp))
     {
         // display customer data
+        for (int i = 0; i < customers.size(); i++)
+        {
+            if (customers[i].custID.compare(lookUp))
+            {
+                // create function to print lines
+            }
+            else
+            { /*No need to catch else statement*/
+            }
+        }
     }
     else
     {
@@ -102,6 +120,17 @@ void customer::removeCustomer()
     if (custIdPresent(findCust))
     {
         // remove the customer from the vector
+        for (int i = 0; i < customers.size(); i++)
+        {
+            if (customers[i].custID.compare(findCust))
+            {
+                customers.erase(customers.begin() + i);
+            }
+            else
+            {
+                /*No need to catch else statement*/
+            }
+        }
     }
     else
     {
@@ -127,7 +156,7 @@ string customer::generateID()
     }
     else
     {
-        // No need to catch else statement
+        /*No need to catch else statement*/
     }
 }
 
@@ -156,7 +185,7 @@ string customer::inputUsername()
     }
 }
 
-string inputFName()
+string customer::inputFName()
 {
     string newFName = "";
     cout << "Enter your first name: ";
@@ -172,7 +201,7 @@ string inputFName()
     }
 }
 
-string inputLName()
+string customer::inputLName()
 {
     string newLName = "";
     cout << "Enter your last name: ";
@@ -188,7 +217,7 @@ string inputLName()
     }
 }
 
-string inputDOB()
+string customer::inputDOB()
 {
     string newDOB = "";
     cout << "Enter your date of birth: ";
@@ -228,7 +257,7 @@ string customer::inputCCN()
     }
 }
 
-int inputPoints()
+int customer::inputPoints()
 {
     string newPoints = "";
     cout << "Enter your current rewards points: ";
@@ -271,7 +300,7 @@ bool customer::custIdPresent(string value)
         }
         else
         {
-            // No need to catch else statement
+            /*No need to catch else statement*/
         }
     }
 
@@ -288,7 +317,7 @@ bool customer::custCCNPresent(string value)
         }
         else
         {
-            // No need to catch else statement
+            /*No need to catch else statement*/
         }
     }
 
@@ -305,14 +334,14 @@ bool customer::custUNPresent(string value)
         }
         else
         {
-            // No need to catch else statement
+            /*No need to catch else statement*/
         }
     }
 
     return false;
 }
 
-bool matchCCRegex(string value)
+bool customer::matchCCRegex(string value)
 {
     // match all kinds of credit cards from various companies
     string validation = "^(?:4[0-9]{12}(?:[0-9]{3})? |  (?:5[1-5][0-9]{2} | 222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12} ";
@@ -329,7 +358,7 @@ bool matchCCRegex(string value)
     }
 }
 
-string attachNums(int count)
+string customer::attachNums(int count)
 {
     string convert = to_string(count);
     string padding;
@@ -367,7 +396,7 @@ int customer::retrievePoints(string lookupID)
         }
         else
         {
-            // No need to catch else statement
+            /*No need to catch else statement*/
         }
     }
 
