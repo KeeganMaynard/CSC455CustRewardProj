@@ -35,6 +35,16 @@ public:
     int getPointsEarned() { return pointsEarned; }
 };
 
+// Function prototypes
+string inputGift();
+int inputGiftValue();
+int inputMoneySpent();
+int inputPointsEarned();
+bool validateGift(string);
+bool validateGiftValue(int);
+bool validateMoneySpent(int);
+bool validatePointsEarned(int);
+
 // Declaration and Assignment of the Variables
 void rewardValues()
 {
@@ -175,7 +185,8 @@ bool validatePointsEarned(int newPointsEarned)
         return false;
     }
 }
-vector<string> readFile(string file)
+
+vector<string> readFromFile(string file)
 {
     fstream myFile;
     string line;
@@ -207,7 +218,7 @@ vector<rewards> createRewards(vector<string> lines)
     return rewardVector;
 }
 
-string toString(vector<string> ids)
+string makeString(vector<string> ids)
 {
     string finalString = "";
     for (int i = 0; i < ids.size(); i++)

@@ -18,6 +18,8 @@
 #include <string>
 using namespace std;
 
+void displayOpts();
+
 int main()
 {
     customer cust;
