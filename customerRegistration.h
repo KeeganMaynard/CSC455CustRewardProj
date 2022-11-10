@@ -1,41 +1,5 @@
 /*Customer registration class - will connect with mainMenu.cpp
-    user must register to benefit from the reward service
-    - user name:
-        - consists of at least 8 characters, followed by at most 3 numbers
-            - ex: uniqueUser123
-            - do we need to prevent special characters?
-        - must be unique (cannot already exist)
-    - first name:
-        - must be a string no longer than 15 characters
-        - does not contain any numbers or special characters
-    - last name:
-        - same as first name
-    - date of birth:
-        - Must be in MM-DD-YYYY format
-            ex: 01-23-2022
-        - values must be ints
-        - how do we validate? Do we need to check if MM <= 12, DD <=30, YYYY <=2022?
-    - credit card number:
-        - must be unique (cannot already exist)
-        - must follow format xxxx-xxx-xxxx (4-3-4)
-            ex: 1234-567-8910
-        - must be ints
-    - system will assign unique user ID:
-        - must be unique (cannot already exist)
-        - must start with "CID", follow by 10 digits
-            ex: CID1234567890
-        - only assign user ID AFTER user input has been validated!!
-    - reward points:
-        - must be a positive number
-        - are we assigning 0 or allowing user to enter points already earned?
-    - all user information must be saved in a file named "customers.txt"
-        - check assignment.pdf for format
-        - only write to file AFTER user input has been validated!!
-    - will need to split all inputs into their own functions
-        - make logging its own function
-        - make validation its own function(s)
-    - will need to be able to read PREVIOUS RECORDS
-*/
+ */
 #ifndef CUSTOMERREGISTRATION_H
 #define CUSTOMERREGISTRATION_H
 #include <iostream>
@@ -55,15 +19,26 @@ private:
     string custDOB;
     string custCC;
     int custPoints;
-    int custCount;
 
 public:
     customer(){};
 
-    // vectors to store previously entered values - to make sure they are unique
-    vector<string> previousIDsList;
-    vector<string> previousUNList;
-    vector<string> previousCCNList;
+    // vector and associated functions to store previously entered and new customers
+    vector<customer> customers;
+    bool custIdPresent(string);
+    bool custCCNPresent(string);
+    bool custUNPresent(string);
+
+    // utility functions
+    void initilize();
+    void registerUser();
+    void searchCustomer();
+    void removeCustomer();
+    string generateID();
+    string inputUsername();
+    string inputCCN();
+    void logNewUser(customer &);
+    int retrievePoints(string);
 
     // setter functions
     void setCustID(string newID) { custID = newID; }
@@ -73,7 +48,6 @@ public:
     void setDOB(string newDOB) { custDOB = newDOB; }
     void setCC(string newCCN) { custCC = newCCN; }
     void setPoints(int newPoints) { custPoints = newPoints; }
-    void setCount(int newCount) { custCount = newCount; }
 
     // getter functions
     string getCustID() { return custID; }
@@ -83,11 +57,11 @@ public:
     string getDOB() { return custDOB; }
     string getCCN() { return custCC; }
     int getPoints() { return custPoints; }
-    int getCount() { return custCount; }
 };
 
-void registerUser()
+void customer::registerUser()
 {
+    // create a new instance of the customer class
     customer newCustomer;
 
     newCustomer.setCustID(generateID());
@@ -97,37 +71,89 @@ void registerUser()
     newCustomer.setDOB(inputDOB());
     newCustomer.setCC(inputCCN());
     newCustomer.setPoints(inputPoints());
-    newCustomer.setCount(incCount());
+
+    // add the new customer to the list of customers
+    customers.push_back(newCustomer);
     logNewUser(newCustomer);
 }
 
-void searchCustomer()
+void customer::searchCustomer()
 {
     string lookUp;
     cout << "Enter the customer ID for the customer you wish to search: ";
     getline(cin, lookUp);
+
+    if (custIdPresent(lookUp))
+    {
+        // display customer data
+    }
+    else
+    {
+        cout << "That user ID is not associated with an account" << endl;
+    }
 }
 
-void removeCustomer()
+void customer::removeCustomer()
 {
     string findCust;
     cout << "Enter the customer ID for the customer you wish to remove: ";
     getline(cin, findCust);
+
+    if (custIdPresent(findCust))
+    {
+        // remove the customer from the vector
+    }
+    else
+    {
+        cout << "That user ID is not associated with an account" << endl;
+    }
 }
 
-string generateID()
+void customer::initilize()
+{
+    // Function to read the file and fill up the vector
+}
+
+string customer::generateID()
 {
     string newID = "CID";
+    int currCount = customers.size() + 1;
     // attach 10 digits at the end
-    return newID;
+    newID.append(attachNums(currCount));
+
+    if (!custIdPresent(newID))
+    {
+        return newID;
+    }
+    else
+    {
+        // No need to catch else statement
+    }
 }
 
-string inputUsername()
+string customer::inputUsername()
 {
     string newUserName = "";
     cout << "Enter your username: ";
     getline(cin, newUserName);
-    return newUserName;
+    if (!custUNPresent(newUserName))
+    {
+        // check regex
+        if (regex_match(newUserName, regex("^[a-zA-Z]{8,20}[0-9]{0,3}")))
+        {
+            return newUserName;
+        }
+        else
+        {
+            cout << "The username must be at least 8 characters followed by at most 3 digits" << endl;
+            inputUsername();
+        }
+    }
+    else
+    {
+        cout << "This username is already associated with an account" << endl;
+        inputUsername();
+    }
 }
 
 string inputFName()
@@ -178,12 +204,28 @@ string inputDOB()
     }
 }
 
-string inputCCN()
+string customer::inputCCN()
 {
     string newCCN = "";
     cout << "Enter your credit card number: ";
     getline(cin, newCCN);
-    return newCCN;
+    if (matchCCRegex(newCCN))
+    {
+        if (!custCCNPresent(newCCN))
+        {
+            return newCCN;
+        }
+        else
+        {
+            cout << "This credit card number is already associated with an account" << endl;
+            inputCCN();
+        }
+    }
+    else
+    {
+        cout << "The credit card number must follow the xxxx-xxxx-xxxx format" << endl;
+        inputCCN();
+    }
 }
 
 int inputPoints()
@@ -203,40 +245,132 @@ int inputPoints()
     }
 }
 
-int incCount()
-{
-
-    return 0;
-}
-
 // pass the instance of customer to the log function
-void logNewUser(customer &newCust)
+// update to append instead of write
+void customer::logNewUser(customer &newCust)
 {
     // log the new user into customers.txt
     ofstream customersLog("customers.txt");
-    customersLog << "customer " << newCust.getCount() << " ID " << newCust.getCustID() << endl;
-    customersLog << "customer " << newCust.getCount() << " user name " << newCust.getUserName() << endl;
-    customersLog << "customer " << newCust.getCount() << " first name " << newCust.getFName() << endl;
-    customersLog << "customer " << newCust.getCount() << " last name " << newCust.getLName() << endl;
-    customersLog << "customer " << newCust.getCount() << " date of birth " << newCust.getDOB() << endl;
-    customersLog << "customer " << newCust.getCount() << " credit card number " << newCust.getCCN() << endl;
-    customersLog << "customer " << newCust.getCount() << " total reward points " << newCust.getPoints() << "\n\n";
+    customersLog << "customer " << customers.size() << " ID " << newCust.getCustID() << endl;
+    customersLog << "customer " << customers.size() << " user name " << newCust.getUserName() << endl;
+    customersLog << "customer " << customers.size() << " first name " << newCust.getFName() << endl;
+    customersLog << "customer " << customers.size() << " last name " << newCust.getLName() << endl;
+    customersLog << "customer " << customers.size() << " date of birth " << newCust.getDOB() << endl;
+    customersLog << "customer " << customers.size() << " credit card number " << newCust.getCCN() << endl;
+    customersLog << "customer " << customers.size() << " total reward points " << newCust.getPoints() << "\n\n";
     customersLog.close();
 }
 
-bool previousID(string userID)
+bool customer::custIdPresent(string value)
 {
+    for (int i = 0; i < customers.size(); i++)
+    {
+        if (customers[i].custID.compare(value))
+        {
+            return true;
+        }
+        else
+        {
+            // No need to catch else statement
+        }
+    }
+
+    return false;
 }
 
-bool previousUserName(string userName)
+bool customer::custCCNPresent(string value)
 {
+    for (int i = 0; i < customers.size(); i++)
+    {
+        if (customers[i].custCC.compare(value))
+        {
+            return true;
+        }
+        else
+        {
+            // No need to catch else statement
+        }
+    }
+
+    return false;
 }
 
-bool previousCCNum(string ccN)
+bool customer::custUNPresent(string value)
 {
+    for (int i = 0; i < customers.size(); i++)
+    {
+        if (customers[i].username.compare(value))
+        {
+            return true;
+        }
+        else
+        {
+            // No need to catch else statement
+        }
+    }
+
+    return false;
 }
 
-int retrievePoints(string lookUpID)
+bool matchCCRegex(string value)
 {
+    // match all kinds of credit cards from various companies
+    string validation = "^(?:4[0-9]{12}(?:[0-9]{3})? |  (?:5[1-5][0-9]{2} | 222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12} ";
+    string validation2 = " |  3[47][0-9]{13} |  3(?:0[0-5]|[68][0-9])[0-9]{11} |  6(?:011|5[0-9]{2})[0-9]{12} |  (?:2131|1800|35\d{3})\d{11})$";
+    validation.append(validation2);
+
+    if (regex_match(value, regex(validation)))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+string attachNums(int count)
+{
+    string convert = to_string(count);
+    string padding;
+
+    switch (convert.length())
+    {
+    case 1:
+        padding = "000000000" + convert;
+        break;
+    case 2:
+        padding = "00000000" + convert;
+        break;
+    case 3:
+        padding = "0000000" + convert;
+        break;
+    case 4:
+        padding = "000000" + convert;
+        break;
+    default:
+        padding = convert;
+        break;
+    }
+
+    return padding;
+}
+
+int customer::retrievePoints(string lookupID)
+{
+
+    for (int i = 0; i < customers.size(); i++)
+    {
+        if (customers[i].custID.compare(lookupID))
+        {
+            return customers[i].custPoints;
+        }
+        else
+        {
+            // No need to catch else statement
+        }
+    }
+
+    return 0;
 }
 #endif
