@@ -61,7 +61,7 @@ string inputGift()
 {
     string gift = "";
     cout << "Enter the available reward gift: ";
-    cin >> gift;
+    getline(cin, gift);
     if (validateGift(gift))
     {
         return gift;

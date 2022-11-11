@@ -77,7 +77,7 @@ void product::removeProduct()
     string prodID;
 
     cout << "Enter product ID for product you wish to remove: ";
-    cin >> prodID;
+    getline(cin, prodID);
 
     if (!productIdUnique(prodID))
     {
@@ -114,7 +114,7 @@ string product::enterProductID()
     string ID;
 
     cout << "Enter Product ID: ";
-    cin >> ID;
+    getline(cin, ID);
     if (validID(ID))
     {
         return ID;
@@ -143,7 +143,7 @@ string product::enterProductPrice()
     string price;
 
     cout << "Enter Product Price: ";
-    cin >> price;
+    getline(cin, price);
     return price;
 }
 
