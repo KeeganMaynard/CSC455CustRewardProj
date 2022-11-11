@@ -18,41 +18,34 @@
 #include <string>
 using namespace std;
 
-void displayOpts();
-customer cust;
-product prod;
-
 int main()
 {
-    cust.initilize();
     bool run = true;
     while (run)
     {
         string option = "";
         displayOpts();
-        getline(cin, option);
+        cin >> option;
 
         switch (stoi(option))
         {
         case 1:
-            cust.registerUser();
+            registerUser();
             break;
         case 2:
-            cust.removeCustomer();
+            removeCustomer();
             break;
         case 3:
-            prod.addProduct();
             break;
         case 4:
-            prod.removeProduct();
             break;
         case 5:
             break;
         case 6:
-            cust.searchCustomer();
+            searchCustomer();
             break;
         case 7:
-
+            redeemable();
             break;
         case 8:
             run = false;

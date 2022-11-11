@@ -257,7 +257,7 @@ string makeString(vector<string> ids)
     return finalString;
 }
 
-void writeTransactions(vector<rewards> rewardVector)
+void writeRewards(vector<rewards> rewardVector)
 {
     fstream myFile;
     myFile.open("rewards.txt", ios::app);
@@ -293,4 +293,8 @@ void redeemRewards(vector<rewards> rewardVector)
     }
 }
 
+void redeemable()
+{
+    redeemRewards(createRewards(readFromFile("rewards.txt")));
+}
 #endif
