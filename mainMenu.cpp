@@ -29,7 +29,7 @@ int main()
     {
         string option = "";
         displayOpts();
-        cin >> option;
+        getline(cin, option);
 
         switch (stoi(option))
         {
