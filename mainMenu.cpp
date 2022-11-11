@@ -52,7 +52,7 @@ int main()
             cust.searchCustomer();
             break;
         case 7:
-
+            redeemable();
             break;
         case 8:
             run = false;
