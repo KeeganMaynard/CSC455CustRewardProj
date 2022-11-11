@@ -220,7 +220,7 @@ string customer::generateID()
     }
     else
     {
-        /*No need to catch else statement*/
+        return "There are no valid IDs available";
     }
 }
 
