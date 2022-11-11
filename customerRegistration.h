@@ -220,8 +220,10 @@ string customer::generateID()
     }
     else
     {
-        return "There are no valid IDs available";
+        generateID();
     }
+
+    return "There are no valid IDs available";
 }
 
 string customer::inputUsername()
@@ -247,6 +249,8 @@ string customer::inputUsername()
         cout << "This username is already associated with an account" << endl;
         inputUsername();
     }
+
+    return "RandUser" + customers.size();
 }
 
 string customer::inputFName()
@@ -263,6 +267,8 @@ string customer::inputFName()
         cout << "The name must be less than 15 characters and cannot contain numbers or special characters" << endl;
         inputFName();
     }
+
+    return "Unknown";
 }
 
 string customer::inputLName()
@@ -279,6 +285,8 @@ string customer::inputLName()
         cout << "The name must be less than 15 characters and cannot contain numbers or special characters" << endl;
         inputLName();
     }
+
+    return "Unknown";
 }
 
 string customer::inputDOB()
@@ -295,6 +303,8 @@ string customer::inputDOB()
         cout << "The date of birth must be entered in the MM-DD-YYYY format" << endl;
         inputDOB();
     }
+
+    return "Unknown";
 }
 
 string customer::inputCCN()
@@ -319,6 +329,8 @@ string customer::inputCCN()
         cout << "The credit card number must follow the xxxx-xxxx-xxxx format" << endl;
         inputCCN();
     }
+
+    return "Uknown";
 }
 
 int customer::inputPoints()
@@ -336,6 +348,8 @@ int customer::inputPoints()
         cout << "The current rewards points must be greater than 0" << endl;
         inputPoints();
     }
+
+    return 0;
 }
 
 // append the last customer in the vector to the txt file
