@@ -71,6 +71,9 @@ string inputGift()
         cout << "Gift must be a valid String";
         inputGift();
     }
+
+    // Default return statement - will never be hit
+    return "Unable to enter a valid gift name";
 }
 
 int inputGiftValue()
@@ -87,6 +90,9 @@ int inputGiftValue()
         cout << "Please enter a positive numerical value.";
         inputGiftValue();
     }
+
+    // Default return statement - will never be hit
+    return 100;
 }
 
 int inputMoneySpent()
@@ -103,6 +109,9 @@ int inputMoneySpent()
         cout << "Please enter a positive numerical value.";
         inputMoneySpent();
     }
+
+    // Default return statement - will never be hit
+    return 100;
 }
 
 int inputPointsEarned()
@@ -118,6 +127,9 @@ int inputPointsEarned()
     {
         cout << "Please eter a positive numerical value. ";
     }
+
+    // Default return statement - will never be hit
+    return 1;
 }
 
 // Writing of the values to the database
@@ -154,6 +166,9 @@ bool validateGiftValue(int newGiftValue)
     {
         return false;
     }
+
+    // Default return statement - will never be hit
+    return true;
 }
 
 bool validateMoneySpent(int newMoneySpent)
@@ -169,6 +184,9 @@ bool validateMoneySpent(int newMoneySpent)
     {
         return false;
     }
+
+    // Default return statement - will never be hit
+    return true;
 }
 
 bool validatePointsEarned(int newPointsEarned)
@@ -184,6 +202,9 @@ bool validatePointsEarned(int newPointsEarned)
     {
         return false;
     }
+
+    // Default return statement - will never be hit
+    return true;
 }
 
 vector<string> readFromFile(string file)
