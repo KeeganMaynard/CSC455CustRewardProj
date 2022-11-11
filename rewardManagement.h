@@ -289,7 +289,7 @@ void redeemRewards(vector<rewards> rewardVector)
     }
     else
     {
-        cout << "This is an invalid Customer ID" << endl;
+        cout << "This username is not associated with an account" << endl;
     }
 }
 
