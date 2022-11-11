@@ -273,14 +273,14 @@ void writeTransactions(vector<rewards> rewardVector)
 void redeemRewards(vector<rewards> rewardVector)
 {
     customer cust;
-    string customerID;
-    cout << "Enter in your customer ID: " << endl;
-    cin >> customerID;
-    if (cust.custIdPresent(customerID))
+    string custUN;
+    cout << "Enter in your username: " << endl;
+    getline(cin, custUN);
+    if (cust.custUNPresent(custUN))
     {
-        if (cust.retrievePoints(customerID) > rewardVector[1].giftValue)
+        if (cust.retrievePoints(custUN) > rewardVector[1].giftValue)
         {
-            int newValue = cust.retrievePoints(customerID) - rewardVector[1].giftValue;
+            int newValue = cust.retrievePoints(custUN) - rewardVector[1].giftValue;
         }
         else
         {

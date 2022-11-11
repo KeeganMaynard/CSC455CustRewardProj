@@ -91,15 +91,15 @@ void customer::registerUser()
 void customer::searchCustomer()
 {
     string lookUp;
-    cout << "Enter the customer ID for the customer you wish to search: ";
+    cout << "Enter the username for the customer you wish to search: ";
     getline(cin, lookUp);
 
-    if (custIdPresent(lookUp))
+    if (custUNPresent(lookUp))
     {
         // display customer data
         for (int i = 0; i < customers.size(); i++)
         {
-            if (customers[i].custID.compare(lookUp))
+            if (customers[i].username.compare(lookUp))
             {
                 displayCustData(i);
             }
@@ -110,22 +110,22 @@ void customer::searchCustomer()
     }
     else
     {
-        cout << "That user ID is not associated with an account" << endl;
+        cout << "That username is not associated with an account" << endl;
     }
 }
 
 void customer::removeCustomer()
 {
     string findCust;
-    cout << "Enter the customer ID for the customer you wish to remove: ";
+    cout << "Enter the username for the customer you wish to remove: ";
     getline(cin, findCust);
 
-    if (custIdPresent(findCust))
+    if (custUNPresent(findCust))
     {
         // remove the customer from the vector
         for (int i = 0; i < customers.size(); i++)
         {
-            if (customers[i].custID.compare(findCust))
+            if (customers[i].username.compare(findCust))
             {
                 customers.erase(customers.begin() + i);
             }
@@ -137,7 +137,7 @@ void customer::removeCustomer()
     }
     else
     {
-        cout << "That user ID is not associated with an account" << endl;
+        cout << "That username is not associated with an account" << endl;
     }
 }
 
@@ -294,7 +294,7 @@ string customer::inputDOB()
     string newDOB = "";
     cout << "Enter your date of birth: ";
     getline(cin, newDOB);
-    if (regex_match(newDOB, regex("^(1[0-2]|0[1-9])/(3[01]|[12][0-9]|0[1-9])/[0-9]{4}$")))
+    if (regex_match(newDOB, regex("^(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])-[0-9]{4}$")))
     {
         return newDOB;
     }
@@ -470,7 +470,7 @@ int customer::retrievePoints(string lookupID)
 
     for (int i = 0; i < customers.size(); i++)
     {
-        if (customers[i].custID.compare(lookupID))
+        if (customers[i].username.compare(lookupID))
         {
             return customers[i].custPoints;
         }
