@@ -19,10 +19,11 @@
 using namespace std;
 
 void displayOpts();
+customer cust;
+product prod;
 
 int main()
 {
-    customer cust;
     cust.initilize();
     bool run = true;
     while (run)
@@ -40,8 +41,10 @@ int main()
             cust.removeCustomer();
             break;
         case 3:
+            prod.addProduct();
             break;
         case 4:
+            prod.removeProduct();
             break;
         case 5:
             break;
@@ -49,6 +52,7 @@ int main()
             cust.searchCustomer();
             break;
         case 7:
+
             break;
         case 8:
             run = false;
