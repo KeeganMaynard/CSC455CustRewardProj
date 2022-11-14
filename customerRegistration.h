@@ -86,6 +86,8 @@ void customer::registerUser()
     // add the new customer to the list of customers
     customers.push_back(newCustomer);
     logNewUser(customers.size());
+
+    cout << "\nCustomer successfully entered" << endl;
 }
 
 void customer::searchCustomer()
@@ -355,18 +357,26 @@ int customer::inputPoints()
 // append the last customer in the vector to the txt file
 void customer::logNewUser(int custNum)
 {
+    string &custID = customers[custNum].custID;
+    string &username = customers[custNum].username;
+    string &fname = customers[custNum].fname;
+    string &lname = customers[custNum].lname;
+    string &dob = customers[custNum].custDOB;
+    string &CCNum = customers[custNum].custCC;
+    int &points = customers[custNum].custPoints;
+
     // open the log file and set to append data
     ofstream customersLog;
     customersLog.open("customers.txt", ios::app);
 
     // log the new user into customers.txt
-    customersLog << "customer " << customers.size() << " ID " << customers[custNum].custID << endl;
-    customersLog << "customer " << customers.size() << " user name " << customers[custNum].username << endl;
-    customersLog << "customer " << customers.size() << " first name " << customers[custNum].fname << endl;
-    customersLog << "customer " << customers.size() << " last name " << customers[custNum].lname << endl;
-    customersLog << "customer " << customers.size() << " date of birth " << customers[custNum].custDOB << endl;
-    customersLog << "customer " << customers.size() << " credit card number " << customers[custNum].custCC << endl;
-    customersLog << "customer " << customers.size() << " total reward points " << customers[custNum].custPoints << "\n\n";
+    customersLog << "customer " << custNum << " ID " << custID << endl;
+    customersLog << "customer " << custNum << " user name " << username << endl;
+    customersLog << "customer " << custNum << " first name " << fname << endl;
+    customersLog << "customer " << custNum << " last name " << lname << endl;
+    customersLog << "customer " << custNum << " date of birth " << dob << endl;
+    customersLog << "customer " << custNum << " credit card number " << CCNum << endl;
+    customersLog << "customer " << custNum << " total reward points " << points << "\n\n";
 
     // close the log file
     customersLog.close();
@@ -472,7 +482,8 @@ int customer::retrievePoints(string lookupID)
     {
         if (customers[i].username.compare(lookupID))
         {
-            return customers[i].custPoints;
+            int &custPoints = customers[i].custPoints;
+            return custPoints;
         }
         else
         {
@@ -485,12 +496,20 @@ int customer::retrievePoints(string lookupID)
 
 void customer::displayCustData(int custNum)
 {
-    cout << "customer " << custNum << " " << customers[custNum].custID << endl;
-    cout << "customer " << custNum << " " << customers[custNum].username << endl;
-    cout << "customer " << custNum << " " << customers[custNum].fname << endl;
-    cout << "customer " << custNum << " " << customers[custNum].lname << endl;
-    cout << "customer " << custNum << " " << customers[custNum].custDOB << endl;
-    cout << "customer " << custNum << " " << customers[custNum].custCC << endl;
-    cout << "customer " << custNum << " " << customers[custNum].custPoints << endl;
+    string &custID = customers[custNum].custID;
+    string &username = customers[custNum].username;
+    string &fname = customers[custNum].fname;
+    string &lname = customers[custNum].lname;
+    string &dob = customers[custNum].custDOB;
+    string &CCNum = customers[custNum].custCC;
+    int &points = customers[custNum].custPoints;
+
+    cout << "customer " << custNum << " ID " << custID << endl;
+    cout << "customer " << custNum << " User Name " << username << endl;
+    cout << "customer " << custNum << " First Name " << fname << endl;
+    cout << "customer " << custNum << " Last Name " << lname << endl;
+    cout << "customer " << custNum << " Date of Birth " << dob << endl;
+    cout << "customer " << custNum << " Credit Card " << CCNum << endl;
+    cout << "customer " << custNum << " Points " << points << endl;
 }
 #endif
