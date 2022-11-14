@@ -74,7 +74,7 @@ void displayOpts()
     cout << "[3] Product addition" << endl;
     cout << "[4] Product removal" << endl;
     cout << "[5] Shopping" << endl;
-    cout << "[6] View customer using customer ID" << endl;
+    cout << "[6] View customer using customer username" << endl;
     cout << "[7] Redeem rewards" << endl;
     cout << "[8] End session" << endl;
 }

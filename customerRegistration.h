@@ -73,7 +73,7 @@ public:
 void customer::registerUser()
 {
     // create a new instance of the customer class
-    customer newCustomer;
+    customer newCustomer = customer();
 
     newCustomer.setCustID(generateID());
     newCustomer.setUserName(inputUsername());
@@ -87,7 +87,7 @@ void customer::registerUser()
     customers.push_back(newCustomer);
     logNewUser(customers.size());
 
-    cout << "\nCustomer successfully entered" << endl;
+    cout << "\nCustomer successfully entered\n\n";
 }
 
 void customer::searchCustomer()
@@ -101,7 +101,8 @@ void customer::searchCustomer()
         // display customer data
         for (int i = 0; i < customers.size(); i++)
         {
-            if (customers[i].username.compare(lookUp))
+            string &storedUNs = customers[i].username;
+            if (storedUNs.compare(lookUp))
             {
                 displayCustData(i);
             }
@@ -386,7 +387,8 @@ bool customer::custIdPresent(string value)
 {
     for (int i = 0; i < customers.size(); i++)
     {
-        if (customers[i].custID.compare(value))
+        string &custIDs = customers[i].custID;
+        if (custIDs.compare(value))
         {
             return true;
         }
@@ -403,7 +405,8 @@ bool customer::custCCNPresent(string value)
 {
     for (int i = 0; i < customers.size(); i++)
     {
-        if (customers[i].custCC.compare(value))
+        string &custCCNs = customers[i].custCC;
+        if (custCCNs.compare(value))
         {
             return true;
         }
@@ -420,7 +423,8 @@ bool customer::custUNPresent(string value)
 {
     for (int i = 0; i < customers.size(); i++)
     {
-        if (customers[i].username.compare(value))
+        string &custUNs = customers[i].username;
+        if (custUNs.compare(value))
         {
             return true;
         }
