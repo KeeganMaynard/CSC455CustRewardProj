@@ -73,7 +73,7 @@ public:
 void customer::registerUser()
 {
     // create a new instance of the customer class
-    customer newCustomer = customer();
+    customer newCustomer;
 
     newCustomer.setCustID(generateID());
     newCustomer.setUserName(inputUsername());
@@ -128,7 +128,8 @@ void customer::removeCustomer()
         // remove the customer from the vector
         for (int i = 0; i < customers.size(); i++)
         {
-            if (customers[i].username.compare(findCust))
+            string &storedUNs = customers[i].username;
+            if (storedUNs.compare(findCust))
             {
                 customers.erase(customers.begin() + i);
             }
@@ -166,6 +167,8 @@ void customer::initilize()
             else
             {
                 parseData(buffer);
+                temp = "";
+                buffer = "";
             }
         }
         customersLog.close();
