@@ -102,7 +102,7 @@ void customer::searchCustomer()
         for (int i = 0; i < customers.size(); i++)
         {
             string &storedUNs = customers[i].username;
-            if (storedUNs.compare(lookUp))
+            if (storedUNs.compare(lookUp) == 0)
             {
                 displayCustData(i);
             }
@@ -129,7 +129,7 @@ void customer::removeCustomer()
         for (int i = 0; i < customers.size(); i++)
         {
             string &storedUNs = customers[i].username;
-            if (storedUNs.compare(findCust))
+            if (storedUNs.compare(findCust) == 0)
             {
                 customers.erase(customers.begin() + i);
             }
@@ -391,7 +391,7 @@ bool customer::custIdPresent(string value)
     for (int i = 0; i < customers.size(); i++)
     {
         string &custIDs = customers[i].custID;
-        if (custIDs.compare(value))
+        if (custIDs.compare(value) == 0)
         {
             return true;
         }
@@ -409,7 +409,7 @@ bool customer::custCCNPresent(string value)
     for (int i = 0; i < customers.size(); i++)
     {
         string &custCCNs = customers[i].custCC;
-        if (custCCNs.compare(value))
+        if (custCCNs.compare(value) == 0)
         {
             return true;
         }
@@ -427,7 +427,7 @@ bool customer::custUNPresent(string value)
     for (int i = 0; i < customers.size(); i++)
     {
         string &custUNs = customers[i].username;
-        if (custUNs.compare(value))
+        if (custUNs.compare(value) == 0)
         {
             return true;
         }
@@ -487,7 +487,8 @@ int customer::retrievePoints(string lookupID)
 
     for (int i = 0; i < customers.size(); i++)
     {
-        if (customers[i].username.compare(lookupID))
+        string &custUN = customers[i].username;
+        if (custUN.compare(lookupID) == 0)
         {
             int &custPoints = customers[i].custPoints;
             return custPoints;
