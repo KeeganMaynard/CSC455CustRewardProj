@@ -44,6 +44,7 @@ public:
 
     // utility functions
     void initilize();
+    void shutdown();
     void parseData(string);
     void logNewUser(int);
     bool matchCCRegex(string);
@@ -83,8 +84,10 @@ void customer::registerUser()
     newCustomer.setCC(inputCCN());
     newCustomer.setPoints(inputPoints());
 
-    // add the new customer to the list of customers
+    // add the new customer to the vector of customers
     customers.push_back(newCustomer);
+
+    // log the most recent index of the vector
     logNewUser(customers.size() - 1);
 
     cout << "\nCustomer successfully entered\n\n";
@@ -211,6 +214,15 @@ void customer::parseData(string line)
     loadCust.setPoints(stoi(loadPoints));
 
     customers.push_back(loadCust);
+}
+
+void customer::shutdown()
+{
+    // TODO - clear the text file to avoid duplicates, write all customers remaining in vector
+    for (int i = 0; i < customers.size(); i++)
+    {
+        logNewUser(i);
+    }
 }
 
 string customer::generateID()

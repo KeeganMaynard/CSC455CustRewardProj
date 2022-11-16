@@ -55,6 +55,7 @@ int main()
             redeemable();
             break;
         case 8:
+            cust.shutdown();
             run = false;
             break;
         default:
