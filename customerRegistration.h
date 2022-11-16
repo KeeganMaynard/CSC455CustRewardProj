@@ -218,7 +218,11 @@ void customer::parseData(string line)
 
 void customer::shutdown()
 {
-    // TODO - clear the text file to avoid duplicates, write all customers remaining in vector
+    // clear the text file to avoid duplicates
+    ofstream logFile("customers.txt");
+    logFile.close();
+
+    // write all customers remaining in vector
     for (int i = 0; i < customers.size(); i++)
     {
         logNewUser(i);
