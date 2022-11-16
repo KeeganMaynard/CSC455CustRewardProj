@@ -85,7 +85,7 @@ void customer::registerUser()
 
     // add the new customer to the list of customers
     customers.push_back(newCustomer);
-    logNewUser(customers.size());
+    logNewUser(customers.size() - 1);
 
     cout << "\nCustomer successfully entered\n\n";
 }
