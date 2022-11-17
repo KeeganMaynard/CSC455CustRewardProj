@@ -125,10 +125,23 @@ void transaction::writeTransactions(vector<transaction> &transactions) {
 }
 
 void transaction::shopping(customer &cust, product &prod) {
-  string custNum;
+  string custUN;
+  customer tempCust;
   cout << "Enter your username number: ";
-  cin >> custNum;
-  if (cust.custUNPresent(custNum)) {
-    int points = cust.retrievePoints(custNum);
+  cin >> custUN;
+  if (cust.custUNPresent(custUN)) {
+    for (int i = 0; i < cust.customers.size(); i++) {
+      if (custUN = cust.customers[i].getUserName()) {
+        tempCust = &cust.customers[i];
+
+      } else {
+        continue;
+      }
+    }
+    for (int i = 0; i < prod.products.size(); i++) {
+      cout << prod.toString(prod.products[i]);
+    }
+  } else {
+    cout << "The Username does not exist!" << endl;
   }
 }
