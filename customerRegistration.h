@@ -112,7 +112,6 @@ void customer::searchCustomer() {
   }
 }
 
-<<<<<<< HEAD
 void customer::removeCustomer() {
   string findCust;
   cout << "Enter the username for the customer you wish to remove: ";
@@ -124,41 +123,18 @@ void customer::removeCustomer() {
       string &storedUNs = customers[i].username;
       if (storedUNs.compare(findCust) == 0) {
         customers.erase(customers.begin() + i);
+        cout << "\nCustomer removed successfully\n\n";
       } else {
         /*No need to catch else statement*/
       }
-=======
-void customer::removeCustomer()
-{
-    string findCust;
-    cout << "Enter the username for the customer you wish to remove: ";
-    getline(cin, findCust);
-
-    if (custUNPresent(findCust))
-    {
-        // remove the customer from the vector
-        for (int i = 0; i < customers.size(); i++)
-        {
-            string &storedUNs = customers[i].username;
-            if (storedUNs.compare(findCust) == 0)
-            {
-                customers.erase(customers.begin() + i);
-                cout << "\nCustomer removed successfully\n\n";
-            }
-            else
-            {
-                /*No need to catch else statement*/
-            }
-        }
-    }
-    else
-    {
-        cout << "That username is not associated with an account" << endl;
->>>>>>> 9ac301aac398aa887abfe5db352b7a92cfc61138
     }
   } else {
     cout << "That username is not associated with an account" << endl;
   }
+}
+else {
+  cout << "That username is not associated with an account" << endl;
+}
 }
 
 // Function to read the file and fill up the vector
@@ -455,52 +431,46 @@ int customer::retrievePoints(string lookupID) {
       return custPoints;
     } else {
       /*No need to catch else statement*/
-=======
-int customer::retrievePoints(string lookupID)
-{
-    for (int i = 0; i < customers.size(); i++)
-    {
-        string &custUN = customers[i].username;
-        if (custUN.compare(lookupID) == 0)
-        {
+      == == == = int customer::retrievePoints(string lookupID) {
+        for (int i = 0; i < customers.size(); i++) {
+          string &custUN = customers[i].username;
+          if (custUN.compare(lookupID) == 0) {
             int &custPoints = customers[i].custPoints;
             return custPoints;
-        }
-        else
-        {
+          } else {
             /*No need to catch else statement*/
-        }
+          }
 >>>>>>> 9ac301aac398aa887abfe5db352b7a92cfc61138
+        }
+      }
+
+      return 0;
     }
-  }
 
-  return 0;
-}
-
-void customer::setPoints(string lookupID, int newPoints) {
-  for (int i = 0; i < customers.size(); i++) {
-    string &custUN = customers[i].username;
-    if (custUN.compare(lookupID) == 0) {
-      customers[i].custPoints = newPoints;
+    void customer::setPoints(string lookupID, int newPoints) {
+      for (int i = 0; i < customers.size(); i++) {
+        string &custUN = customers[i].username;
+        if (custUN.compare(lookupID) == 0) {
+          customers[i].custPoints = newPoints;
+        }
+      }
     }
-  }
-}
 
-void customer::displayCustData(int custNum) {
-  string &custID = customers[custNum].custID;
-  string &username = customers[custNum].username;
-  string &fname = customers[custNum].fname;
-  string &lname = customers[custNum].lname;
-  string &dob = customers[custNum].custDOB;
-  string &CCNum = customers[custNum].custCC;
-  int &points = customers[custNum].custPoints;
+    void customer::displayCustData(int custNum) {
+      string &custID = customers[custNum].custID;
+      string &username = customers[custNum].username;
+      string &fname = customers[custNum].fname;
+      string &lname = customers[custNum].lname;
+      string &dob = customers[custNum].custDOB;
+      string &CCNum = customers[custNum].custCC;
+      int &points = customers[custNum].custPoints;
 
-  cout << "customer " << custNum << " ID " << custID << endl;
-  cout << "customer " << custNum << " User Name " << username << endl;
-  cout << "customer " << custNum << " First Name " << fname << endl;
-  cout << "customer " << custNum << " Last Name " << lname << endl;
-  cout << "customer " << custNum << " Date of Birth " << dob << endl;
-  cout << "customer " << custNum << " Credit Card " << CCNum << endl;
-  cout << "customer " << custNum << " Points " << points << endl;
-}
+      cout << "customer " << custNum << " ID " << custID << endl;
+      cout << "customer " << custNum << " User Name " << username << endl;
+      cout << "customer " << custNum << " First Name " << fname << endl;
+      cout << "customer " << custNum << " Last Name " << lname << endl;
+      cout << "customer " << custNum << " Date of Birth " << dob << endl;
+      cout << "customer " << custNum << " Credit Card " << CCNum << endl;
+      cout << "customer " << custNum << " Points " << points << endl;
+    }
 #endif
