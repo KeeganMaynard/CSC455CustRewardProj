@@ -1,15 +1,5 @@
-/* Main menu class - the driver of the program
-    create a menu system that provides the following options:
-    - customer registration (customerRegistration.h)
-    - customer removal (customerRegistration.h)
-    - product addition (productManagement.h)
-    - product removal (productManagement.h)
-    - shopping (here or make transaction.h?)
-        - if here: all transactions must be saved in a file named
-   "transactions.txt"
-            - check assignment.pdf for format
-    - view customer using customer ID (customerRegistration.h)
-    - redeem rewards (rewardManagement.h)
+/* Main menu class - the main class of our program
+  utilizes: customerRegistration.h, productManagement.h, rewardManagement.h, and transaction.h
 */
 #include <iostream>
 #include <string>
@@ -20,55 +10,70 @@
 #include "transaction.h"
 using namespace std;
 
+// displayOpts prototype and class object declarations
 void displayOpts();
 customer cust;
 product prod;
 transaction trans;
 rewards rew;
-int main() {
+
+/* int main() - the driver of our program, gathers user input and performs an option based on input.
+Parameters - none
+Return value - 0, signifies successful run of the program.
+*/
+int main()
+{
   cust.initilize();
   bool run = true;
-  while (run) {
+  while (run)
+  {
     string option = "";
     displayOpts();
     getline(cin, option);
 
-    switch (stoi(option)) {
-      case 1:
-        cust.registerUser();
-        break;
-      case 2:
-        cust.removeCustomer();
-        break;
-      case 3:
-        prod.addProduct();
-        break;
-      case 4:
-        prod.removeProduct();
-        break;
-      case 5:
-        trans.shopping(cust, prod);
-        break;
-      case 6:
-        cust.searchCustomer();
-        break;
-      case 7:
-        rew.redeemRewards();
-        break;
-      case 8:
-        cust.shutdown();
-        run = false;
-        break;
-      default:
-        cout << "Error. Invalid option entered. Please try again" << endl;
-        break;
+    // switch-case based on user input
+    switch (stoi(option))
+    {
+    case 1:
+      cust.registerUser();
+      break;
+    case 2:
+      cust.removeCustomer();
+      break;
+    case 3:
+      prod.addProduct();
+      break;
+    case 4:
+      prod.removeProduct();
+      break;
+    case 5:
+      trans.shopping(cust, prod);
+      break;
+    case 6:
+      cust.searchCustomer();
+      break;
+    case 7:
+      rew.redeemRewards();
+      break;
+    case 8:
+      cust.shutdown();
+      run = false;
+      break;
+    default:
+      cout << "Error. Invalid option entered. Please try again" << endl;
+      break;
     }
   }
 
   return 0;
 }
 
-void displayOpts() {
+/* void displayOpts() - the purpose of this function is to display the program options to the user.
+Parameters - none
+Return value - none
+*/
+void displayOpts()
+{
   cout << "Select the number associated with the opperation you wish to perform"
        << endl;
   cout << "[1] Customer registration" << endl;
