@@ -53,7 +53,7 @@ int main() {
         cust.searchCustomer();
         break;
       case 7:
-        rew.redeemable(cust);
+        redeemable();
         break;
       case 8:
         cust.shutdown();
