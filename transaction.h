@@ -57,7 +57,7 @@ class transaction {
   vector<string> processProductIDs(string line);
   vector<transaction> createTransactions(vector<string> lines);
   void writeTransactions(vector<transaction> &transactions);
-  void shopping(customer cust, product prod);
+  void shopping(customer &cust, product &prod);
 };
 
 vector<string> transaction::readFile(string file) {
@@ -124,7 +124,7 @@ void transaction::writeTransactions(vector<transaction> &transactions) {
   }
 }
 
-void transaction::shopping(customer cust, product prod) {
+void transaction::shopping(customer &cust, product &prod) {
   string custUN, prodId;
   customer *tempCust;
   product tempProd;
