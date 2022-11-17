@@ -5,6 +5,7 @@
     - will need function that determine if redeem points are enough
         - ie. function to check if points cost > customer points
 */
+//this is my change
 #ifndef REWARDMANAGEMENT_H
 #define REWARDMANAGEMENT_H
 #include <fstream>
