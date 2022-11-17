@@ -24,7 +24,7 @@ void displayOpts();
 customer cust;
 product prod;
 transaction trans;
-reward rew;
+rewards rew;
 int main() {
   cust.initilize();
   bool run = true;
@@ -53,7 +53,7 @@ int main() {
         cust.searchCustomer();
         break;
       case 7:
-        rew.redeemable(cust);
+        redeemable();
         break;
       case 8:
         cust.shutdown();

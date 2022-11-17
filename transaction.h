@@ -21,7 +21,8 @@ class transaction {
   vector<string> productIDs;
   float totalAmount;
   int rewardPoints;
-  string toString(vector<string> ids);
+  vector<transaction> transactions;
+  virtual string toString(vector<string> ids);
   transaction() {}
 
   transaction(string tID, string uID, vector<string> pIDs, float tAmount,
@@ -55,8 +56,7 @@ class transaction {
   vector<string> readFile(string file);
   vector<string> processProductIDs(string line);
   vector<transaction> createTransactions(vector<string> lines);
-  string toString(vector<string> ids);
-  void writeTransactions(vector<transaction> transactions);
+  void writeTransactions(vector<transaction> &transactions);
   void shopping(customer &cust, product &prod);
 };
 
@@ -111,7 +111,7 @@ string transaction::toString(vector<string> ids) {
   return finalString;
 }
 
-void transaction::writeTransactions(vector<transaction> transactions) {
+void transaction::writeTransactions(vector<transaction> &transactions) {
   fstream myFile;
   myFile.open("transactions.txt", ios::app);
   for (int i = 0; i <= transactions.size(); i++) {
@@ -128,5 +128,7 @@ void transaction::shopping(customer &cust, product &prod) {
   string custNum;
   cout << "Enter your username number: ";
   cin >> custNum;
-  int points = cust.retrievePoints(custNum);
+  if (cust.custUNPresent(custNum)) {
+    int points = cust.retrievePoints(custNum);
+  }
 }
