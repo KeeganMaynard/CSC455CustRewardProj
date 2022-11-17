@@ -8,6 +8,11 @@
 #include <sstream>
 #include <string>
 #include <vector>
+
+#include "customerRegistration.h"
+#include "productManagement.h"
+#include "rewardManagement.h"
+
 using namespace std;
 class transaction {
  public:
@@ -46,9 +51,16 @@ class transaction {
   void setTotalAmount(float amount) { totalAmount = amount; }
   void setProductIDs(vector<string> ids) { productIDs = ids; }
   void setRewardPoints(int rPoints) { rewardPoints = rPoints; }
+
+  vector<string> readFile(string file);
+  vector<string> processProductIDs(string line);
+  vector<transaction> createTransactions(vector<string> lines);
+  string toString(vector<string> ids);
+  void writeTransactions(vector<transaction> transactions);
+  void shopping(customer &cust, product &prod);
 };
 
-vector<string> readFile(string file) {
+vector<string> transaction::readFile(string file) {
   fstream myFile;
   string line;
   myFile.open(file);
@@ -60,7 +72,7 @@ vector<string> readFile(string file) {
   return lines;
 }
 
-vector<string> processProductIDs(string line) {
+vector<string> transaction::processProductIDs(string line) {
   string s;
   string tmp;
   stringstream ss(s);
@@ -71,7 +83,7 @@ vector<string> processProductIDs(string line) {
   return pIDs;
 }
 
-vector<transaction> createTransactions(vector<string> lines) {
+vector<transaction> transaction::createTransactions(vector<string> lines) {
   transaction t;
   vector<transaction> transactions;
   int transactionCount = lines.size() % 6;
@@ -86,7 +98,7 @@ vector<transaction> createTransactions(vector<string> lines) {
   return transactions;
 }
 
-string toString(vector<string> ids) {
+string transaction::toString(vector<string> ids) {
   string finalString = "";
   for (int i = 0; i < ids.size(); i++) {
     if (i != ids.size() - 1) {
@@ -99,7 +111,7 @@ string toString(vector<string> ids) {
   return finalString;
 }
 
-void writeTransactions(vector<transaction> transactions) {
+void transaction::writeTransactions(vector<transaction> transactions) {
   fstream myFile;
   myFile.open("transactions.txt", ios::app);
   for (int i = 0; i <= transactions.size(); i++) {
@@ -110,4 +122,11 @@ void writeTransactions(vector<transaction> transactions) {
     myFile << transactions[i].rewardPoints << endl;
     myFile << endl;
   }
+}
+
+void transaction::shopping(customer &cust, product &prod) {
+  string custNum;
+  cout << "Enter your username number: ";
+  cin >> custNum;
+  int points = cust.retrievePoints(custNum);
 }
