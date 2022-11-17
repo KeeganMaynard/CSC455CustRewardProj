@@ -322,6 +322,7 @@ void rewards::redeemRewards()
         if (reward == rews[i].gift){
             rewardTemp = rews[i];
         }
+        else{}
     }
     if (cust.custUNPresent(custUN)){
         if (cust.retrievePoints(custUN) > rewardTemp.giftValue){
