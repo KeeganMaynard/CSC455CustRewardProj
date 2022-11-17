@@ -24,7 +24,7 @@ void displayOpts();
 customer cust;
 product prod;
 transaction trans;
-reward rew;
+rewards rew;
 int main() {
   cust.initilize();
   bool run = true;
