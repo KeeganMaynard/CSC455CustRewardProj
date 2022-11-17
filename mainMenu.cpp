@@ -16,6 +16,11 @@ customer cust;
 product prod;
 transaction trans;
 rewards rew;
+
+/* int main() - the driver of our program, gathers user input and performs an option based on input.
+Parameters - none
+Return value - 0, signifies successful run of the program.
+*/
 int main()
 {
   cust.initilize();
