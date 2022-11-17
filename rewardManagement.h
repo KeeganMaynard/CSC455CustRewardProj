@@ -15,15 +15,25 @@
 #include <vector>
 using namespace std;
 
-class reward
+class rewards
 {
 public:
     string gift;
     int giftValue;
     int moneySpent;
     int pointsEarned;
-
+    vector<string> rew;
+    string toString(vector<string> rews);
     rewards(){};
+
+    rewards(string g, int gV, vector<string> r, int mS, int pE){
+        gift = g;
+        giftValue = gV;
+        moneySpent = mS;
+        pointsEarned = pE;
+        rew = r;
+    }
+
     void setGift(string newGift) { gift = newGift; }
     void setGiftValue(int newGiftValue) { giftValue = newGiftValue; }
     void setMoneySpent(int newMoneySpent) { moneySpent = newMoneySpent; }
