@@ -50,6 +50,7 @@ public:
     bool matchCCRegex(string);
     string attachNums(int);
     int retrievePoints(string);
+    void setPoints(string, int);
     void displayCustData(int);
 
     // setter functions
@@ -502,6 +503,18 @@ int customer::retrievePoints(string lookupID)
     }
 
     return 0;
+}
+
+void customer::setPoints(string lookupID, int newPoints)
+{
+    for (int i = 0; i < customers.size(); i++)
+    {
+        string &custUN = customers[i].username;
+        if (custUN.compare(lookupID) == 0)
+        {
+            customers[i].custPoints = newPoints;
+        }
+    }
 }
 
 void customer::displayCustData(int custNum)
