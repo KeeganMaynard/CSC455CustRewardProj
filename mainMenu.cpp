@@ -53,7 +53,7 @@ int main() {
         cust.searchCustomer();
         break;
       case 7:
-        redeemRewards(rew.rews);
+        rew.redeemRewards();
         break;
       case 8:
         cust.shutdown();
