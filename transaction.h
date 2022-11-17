@@ -108,5 +108,6 @@ void writeTransactions(vector<transaction> transactions) {
     myFile << toString(transactions[i].productIDs) << endl;
     myFile << transactions[i].totalAmount << endl;
     myFile << transactions[i].rewardPoints << endl;
+    myFile << endl;
   }
 }
