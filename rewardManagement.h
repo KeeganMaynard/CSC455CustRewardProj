@@ -239,12 +239,12 @@ int rewards::inputPointsEarned()
 }
 
 
-bool validateGift(string newGift)
+bool rewards::validateGift(string newGift)
 {
     return true;
 }
 
-bool validateGiftValue(int newGiftValue)
+bool rewards::validateGiftValue(int newGiftValue)
 {
     if (isdigit(newGiftValue))
     {
@@ -262,7 +262,7 @@ bool validateGiftValue(int newGiftValue)
     return true;
 }
 
-bool validateMoneySpent(int newMoneySpent)
+bool rewards::validateMoneySpent(int newMoneySpent)
 {
     if (isdigit(newMoneySpent))
     {
@@ -280,7 +280,7 @@ bool validateMoneySpent(int newMoneySpent)
     return true;
 }
 
-bool validatePointsEarned(int newPointsEarned)
+bool rewards::validatePointsEarned(int newPointsEarned)
 {
     if (isdigit(newPointsEarned))
     {
@@ -299,17 +299,28 @@ bool validatePointsEarned(int newPointsEarned)
 }
 
 
-void redeemRewards(vector<rewards> rewardVector)
+void rewards::redeemRewards()
 {
     customer cust;
     string custUN;
+    string reward;
+    rewards rewardTemp;
     cout << "Enter in your username: " << endl;
     getline(cin, custUN);
+    cout << "What gift would you like to reedeem?: " << endl;
+    getline(cin, reward);
+    for(int i = 0; i < rews.size(); i++)
+    {
+        if (reward == rews[i].gift)
+        {
+            rewardTemp = rews[i];
+        }
+    }
     if (cust.custUNPresent(custUN))
     {
-        if (cust.retrievePoints(custUN) > rewardVector[1].giftValue)
+        if (cust.retrievePoints(custUN) > rewardTemp.giftValue)
         {
-            int newValue = cust.retrievePoints(custUN) - rewardVector[1].giftValue;
+            int newValue = cust.retrievePoints(custUN) - rewardTemp.giftValue;
         }
         else
         {
