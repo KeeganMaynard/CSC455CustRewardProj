@@ -25,7 +25,6 @@ class product {
   void addProduct();
   void removeProduct();
   int findProduct(string);
-  product returnProduct(product prod, string id);
 
   // user input
   string enterProductID();
@@ -43,6 +42,7 @@ class product {
 
   // string handling
   string toString2(product prod);
+  product returnProduct(product prod, string id);
   void printProducts(product prod);
   void logProduct(product &);
 
@@ -67,7 +67,7 @@ void product::addProduct() {
   newProduct.setProductID(enterProductID());
   newProduct.setProductName(enterProductName());
   newProduct.setProductPrice(enterProductPrice());
-  newProduct.setNumProducts(enterNumProducts());
+  newProduct.setNumProducts(1);
 
   products.push_back(newProduct);
 
@@ -99,22 +99,22 @@ int product::findProduct(string id) {
   }
 
   // Default return statement - will never be hit
-  return 0;
+  return -1;
 }
 
-// // finds product to be returned to the caller
-// product product::returnProduct(product prod, string id) {
-//   for (int i = 0; i < prod.products.size(); i++) {
-//     if (prod.products[i].getProductID() == id) {
-//       return prod.products[i];
-//     } else {
-//       // continue through loop
-//     }
-//   }
+// finds product to be returned to the caller
+product product::returnProduct(product prod, string id) {
+  for (int i = 0; i < prod.products.size(); i++) {
+    if (prod.products[i].getProductID() == id) {
+      return prod.products[i];
+    } else {
+      // continue through loop
+    }
+  }
 
-//   // Default return statement - will never be hit
-//   return;
-// }
+  // Default return statement - will never be hit
+
+}
 
 // get user input
 string product::enterProductID() {
