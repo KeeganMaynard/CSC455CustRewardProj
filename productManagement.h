@@ -36,6 +36,9 @@ class product {
   bool validID(string);
   bool validNumProduct(int);
 
+  // string handling
+  string toString(product prod);
+
   // items to check that IDs are unique
   bool productIdUnique(string);
   vector<product> products;
@@ -196,5 +199,15 @@ void product::logProduct(product &p) {
        << " quantity in store" << endl;
 
   plog.close();
+}
+
+// string productID;
+// string productName;
+// string productPrice;
+// int numProducts;
+string product::toString(product prod) {
+  cout << prod.getProductID() << endl;
+  cout << prod.getName() << endl;
+  cout << prod.getProductPrice() << endl;
 }
 #endif
