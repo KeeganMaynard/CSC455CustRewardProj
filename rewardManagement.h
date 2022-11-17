@@ -327,6 +327,7 @@ void rewards::redeemRewards()
     if (cust.custUNPresent(custUN)){
         if (cust.retrievePoints(custUN) > rewardTemp.giftValue){
             int newValue = cust.retrievePoints(custUN) - rewardTemp.giftValue;
+            cout << "You have redeemed a Gift!!" << endl;
         }
         else{
             cout << "You do not have enough reward points for this gift" << endl;
