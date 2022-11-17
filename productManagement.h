@@ -25,6 +25,7 @@ class product {
   void addProduct();
   void removeProduct();
   int findProduct(string);
+  product returnProduct(product prod, string id);
 
   // user input
   string enterProductID();
@@ -41,8 +42,8 @@ class product {
   vector<product> products;
 
   // string handling
-  string toString(product prod);
-
+  string toString2(product prod);
+  void printProducts(product prod);
   void logProduct(product &);
 
   // set
@@ -100,6 +101,20 @@ int product::findProduct(string id) {
   // Default return statement - will never be hit
   return 0;
 }
+
+// // finds product to be returned to the caller
+// product product::returnProduct(product prod, string id) {
+//   for (int i = 0; i < prod.products.size(); i++) {
+//     if (prod.products[i].getProductID() == id) {
+//       return prod.products[i];
+//     } else {
+//       // continue through loop
+//     }
+//   }
+
+//   // Default return statement - will never be hit
+//   return;
+// }
 
 // get user input
 string product::enterProductID() {
@@ -165,7 +180,8 @@ bool product::validID(string id) {
 
 // validate inventory is postive integer
 bool product::validNumProduct(int p) {
-  if (isdigit(p)) {
+  if (true) {
+    cout<<"isDigit returned true"<<endl;
     if (p > 0) {
       return true;
     } else {
@@ -206,9 +222,20 @@ void product::logProduct(product &p) {
 // string productName;
 // string productPrice;
 // int numProducts;
-string product::toString(product prod) {
+string product::toString2(product prod) {
   cout << prod.getProductID() << endl;
   cout << prod.getName() << endl;
   cout << prod.getProductPrice() << endl;
 }
+
+void product::printProducts(product prod){
+  cout <<"print products ran"<<endl;
+  for(int i=0;i<prod.products.size();i++){ 
+    cout << prod.products[i].getProductID() << endl;
+    cout << prod.products[i].getName() << endl;
+    cout << prod.products[i].getProductPrice() << endl;
+  }
+}
+
+
 #endif

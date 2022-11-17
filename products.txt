@@ -1,0 +1,4 @@
+product 1 P12345
+product 1 test
+product 1 $
+product 1 1 quantity in store

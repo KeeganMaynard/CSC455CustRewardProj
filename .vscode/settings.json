@@ -1,9 +1,12 @@
 {
     "files.associations": {
+        "*.ejs": "html",
         "iostream": "cpp",
         "xstring": "cpp",
         "ostream": "cpp",
         "vector": "cpp",
-        "customerregistration.h": "c"
+        "customerregistration.h": "c",
+        "iosfwd": "cpp",
+        "regex": "cpp"
     }
 }

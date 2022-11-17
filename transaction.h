@@ -1,7 +1,7 @@
 /*Transaction class - will connect with mainMenu.cpp
     used to house transaction data and will write to "transaction.txt"
 */
-
+#pragma
 #define TransactionManager_H
 #include <fstream>
 #include <iostream>
@@ -57,7 +57,7 @@ class transaction {
   vector<string> processProductIDs(string line);
   vector<transaction> createTransactions(vector<string> lines);
   void writeTransactions(vector<transaction> &transactions);
-  void shopping(customer &cust, product &prod);
+  void shopping(customer cust, product prod);
 };
 
 vector<string> transaction::readFile(string file) {
@@ -124,23 +124,25 @@ void transaction::writeTransactions(vector<transaction> &transactions) {
   }
 }
 
-void transaction::shopping(customer &cust, product &prod) {
-  string custUN;
-  customer tempCust;
+void transaction::shopping(customer cust, product prod) {
+  string custUN, prodId;
+  customer *tempCust;
+  product tempProd;
   cout << "Enter your username number: ";
   cin >> custUN;
   if (cust.custUNPresent(custUN)) {
     for (int i = 0; i < cust.customers.size(); i++) {
-      if (custUN = cust.customers[i].getUserName()) {
+      if (custUN == cust.customers[i].getUserName()) {
         tempCust = &cust.customers[i];
 
       } else {
         continue;
       }
     }
-    for (int i = 0; i < prod.products.size(); i++) {
-      cout << prod.toString(prod.products[i]);
-    }
+    prod.printProducts(prod);
+    cout<< "Enter the productId you'd like to purchase: ";
+    cin >> prodId;
+    //tempProd = prod.returnProduct(prod, prodId);
   } else {
     cout << "The Username does not exist!" << endl;
   }
