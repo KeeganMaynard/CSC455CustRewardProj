@@ -136,6 +136,7 @@ void customer::removeCustomer()
             if (storedUNs.compare(findCust) == 0)
             {
                 customers.erase(customers.begin() + i);
+                cout << "\nCustomer removed successfully\n\n";
             }
             else
             {
@@ -487,7 +488,6 @@ string customer::attachNums(int count)
 
 int customer::retrievePoints(string lookupID)
 {
-
     for (int i = 0; i < customers.size(); i++)
     {
         string &custUN = customers[i].username;
