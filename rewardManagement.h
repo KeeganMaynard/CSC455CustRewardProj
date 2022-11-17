@@ -7,13 +7,11 @@
 */
 #ifndef REWARDMANAGEMENT_H
 #define REWARDMANAGEMENT_H
-#include "customerRegistration.h"
-#include <iostream>
-#include <string>
 #include <fstream>
+#include <iostream>
 #include <sstream>
+#include <string>
 #include <vector>
-using namespace std;
 
 class rewards
 {
