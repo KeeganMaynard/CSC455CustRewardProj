@@ -242,10 +242,8 @@ string customer::generateID()
     }
     else
     {
-        generateID();
+        return generateID();
     }
-
-    return "There are no valid IDs available";
 }
 
 string customer::inputUsername()
@@ -263,16 +261,14 @@ string customer::inputUsername()
         else
         {
             cout << "The username must be at least 8 characters followed by at most 3 digits" << endl;
-            inputUsername();
+            return inputUsername();
         }
     }
     else
     {
         cout << "This username is already associated with an account" << endl;
-        inputUsername();
+        return inputUsername();
     }
-
-    return "RandUser" + customers.size();
 }
 
 string customer::inputFName()
@@ -287,10 +283,8 @@ string customer::inputFName()
     else
     {
         cout << "The name must be less than 15 characters and cannot contain numbers or special characters" << endl;
-        inputFName();
+        return inputFName();
     }
-
-    return "Unknown";
 }
 
 string customer::inputLName()
@@ -305,10 +299,8 @@ string customer::inputLName()
     else
     {
         cout << "The name must be less than 15 characters and cannot contain numbers or special characters" << endl;
-        inputLName();
+        return inputLName();
     }
-
-    return "Unknown";
 }
 
 string customer::inputDOB()
@@ -323,10 +315,8 @@ string customer::inputDOB()
     else
     {
         cout << "The date of birth must be entered in the MM-DD-YYYY format" << endl;
-        inputDOB();
+        return inputDOB();
     }
-
-    return "Unknown";
 }
 
 string customer::inputCCN()
@@ -343,16 +333,14 @@ string customer::inputCCN()
         else
         {
             cout << "This credit card number is already associated with an account" << endl;
-            inputCCN();
+            return inputCCN();
         }
     }
     else
     {
         cout << "The credit card number must follow the xxxx-xxxx-xxxx format" << endl;
-        inputCCN();
+        return inputCCN();
     }
-
-    return "Uknown";
 }
 
 int customer::inputPoints()
@@ -368,10 +356,8 @@ int customer::inputPoints()
     else
     {
         cout << "The current rewards points must be greater than 0" << endl;
-        inputPoints();
+        return inputPoints();
     }
-
-    return 0;
 }
 
 // append the last customer in the vector to the txt file
