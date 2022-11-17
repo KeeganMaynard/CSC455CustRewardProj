@@ -50,7 +50,6 @@ public:
   void shutdown();
   void parseData(string);
   void logNewUser(int);
-  bool matchCCRegex(string);
   string attachNums(int);
   int retrievePoints(string);
   void setPoints(string, int);
@@ -412,7 +411,7 @@ string customer::inputCCN()
   cout << "Enter your credit card number: ";
   getline(cin, newCCN);
   // validate the CCN input
-  if (matchCCRegex(newCCN))
+  if (regex_match(newCCN, regex("^\\d{4}[-, ]?\\d{4}[-, ]?\\d{4}$")))
   {
     // test if CCN is unique
     if (!custCCNPresent(newCCN))
@@ -529,9 +528,11 @@ Return values - true or false
 */
 bool customer::custCCNPresent(string value)
 {
+  // for each index in the vector
   for (int i = 0; i < customers.size(); i++)
   {
     string &custCCNs = customers[i].custCC;
+    // test if cust CCN equal to value
     if (custCCNs.compare(value) == 0)
     {
       return true;
@@ -545,11 +546,22 @@ bool customer::custCCNPresent(string value)
   return false;
 }
 
+/* bool custUNPresent(string) - a method of the customer class, this function is utilized to test if the
+value passed to the function is already present in the vector of customers. This function ensures the
+customer username is unique.
+Parameters - string value, the customer username we want to determine if it is already associated with an
+account.
+Return values - true or false
+  returns true if the passed customer username is found in the vector
+  returns false if the passed customer username is not found in the vector
+*/
 bool customer::custUNPresent(string value)
 {
+  // for each index in the vector
   for (int i = 0; i < customers.size(); i++)
   {
     string &custUNs = customers[i].username;
+    // test if cust UN equal to value
     if (custUNs.compare(value) == 0)
     {
       return true;
@@ -563,26 +575,19 @@ bool customer::custUNPresent(string value)
   return false;
 }
 
-bool customer::matchCCRegex(string value)
-{
-  // match all kinds of credit cards from various companies
-  string validation = "^\\d{4}[-, ]?\\d{4}[-, ]?\\d{4}$";
-
-  if (regex_match(value, regex(validation)))
-  {
-    return true;
-  }
-  else
-  {
-    return false;
-  }
-}
-
+/* string attachNums(int) - a method of the customer class, this function is utilized to attach the
+appropriate amount of 0's to the customer Id based on the length of the customer count converted to a string.
+Parameters - int count, the size of the vector passed to be converted to a string to ensure a unique digit
+sequence is created for the customer Id.
+Return values - string padding, the customer Id that will be associated with an account
+*/
 string customer::attachNums(int count)
 {
+  // convert size of vector to string
   string convert = to_string(count);
   string padding;
 
+  // swithc-case based on length of vector size conversion
   switch (convert.length())
   {
   case 1:
@@ -605,13 +610,22 @@ string customer::attachNums(int count)
   return padding;
 }
 
+/* int retrievePoints(string) - a method of the customer class, this function is utilized to gather the
+amount of rewards points a customer has.
+Parameters - string lookupID, the value of the customer username whose points we want to retrieve
+Return value - int custPoints, the value of the points attribute of the instance of customer selected by
+the username
+*/
 int customer::retrievePoints(string lookupID)
 {
+  // for each index in the vector
   for (int i = 0; i < customers.size(); i++)
   {
     string &custUN = customers[i].username;
+    // test if cust UN equal to lookupID
     if (custUN.compare(lookupID) == 0)
     {
+      // retrieve that customer's points
       int &custPoints = customers[i].custPoints;
       return custPoints;
     }
@@ -624,20 +638,36 @@ int customer::retrievePoints(string lookupID)
   return 0;
 }
 
+/* void setPoints(string, int) - a method of the customer class, this function is utilized to update a
+customer's reward points attribute.
+Parameters - string lookupID and int newPoints
+  string lookupID - the value of the customer username whose points we want to update
+  int newPoints - the new value we want to set the points attribute to
+Return value - none
+*/
 void customer::setPoints(string lookupID, int newPoints)
 {
+  // for each index in the vector
   for (int i = 0; i < customers.size(); i++)
   {
     string &custUN = customers[i].username;
+    // test if cust UN equal to lookupID
     if (custUN.compare(lookupID) == 0)
     {
+      // update that customer's points
       customers[i].custPoints = newPoints;
     }
   }
 }
 
+/* void displayCustData(int) - a method of the customer class, this function is utilized to retrieve and
+display all customer information.
+Parameters - int custNum, the value of the index in the vector for the customer data we want to retrieve
+Return values - none
+*/
 void customer::displayCustData(int custNum)
 {
+  // gather customer data from the index passed to the function
   string &custID = customers[custNum].custID;
   string &username = customers[custNum].username;
   string &fname = customers[custNum].fname;
@@ -646,6 +676,7 @@ void customer::displayCustData(int custNum)
   string &CCNum = customers[custNum].custCC;
   int &points = customers[custNum].custPoints;
 
+  // display the data
   cout << "customer " << custNum << " ID " << custID << endl;
   cout << "customer " << custNum << " User Name " << username << endl;
   cout << "customer " << custNum << " First Name " << fname << endl;
