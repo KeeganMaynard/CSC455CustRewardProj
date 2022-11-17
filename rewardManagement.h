@@ -77,6 +77,7 @@ void rewards::rewardValues()
 
 }
 
+//filling of the rewards.txt file
 void rewards::initilize()
 {
     ifstream rewardLog;
@@ -109,6 +110,7 @@ void rewards::initilize()
     }
 }
 
+//reading through the rewards.txt file
 void rewards::parseData(string line)
 {
     string loadG, loadGV, loadMS, loadPE;
@@ -133,6 +135,7 @@ void rewards::parseData(string line)
 
 }
 
+//closing the rewards.txt file
 void rewards::shutdown()
 {
     ofstream logFile("rewards.txt");
@@ -144,6 +147,7 @@ void rewards::shutdown()
     }
 }
 
+// assigning the rewards.txt file to its vector
 void rewards::logRewards(int rewNum)
 {
     string &gift = rews[rewNum].gift;
@@ -162,7 +166,7 @@ void rewards::logRewards(int rewNum)
     rewardsLog.close();
 }
 
-
+//inputing the values
 string rewards::inputGift()
 {
     string gift = "";
@@ -238,7 +242,7 @@ int rewards::inputPointsEarned()
     return 1;
 }
 
-
+//Validation of the values
 bool rewards::validateGift(string newGift)
 {
     return true;
@@ -298,7 +302,7 @@ bool rewards::validatePointsEarned(int newPointsEarned)
     return true;
 }
 
-
+//Able to check the customer ID and then redeem their points for whatever specified reward
 void rewards::redeemRewards()
 {
     customer cust;
