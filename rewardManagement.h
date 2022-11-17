@@ -15,7 +15,7 @@
 #include <vector>
 using namespace std;
 
-class rewards
+class reward
 {
 public:
     string gift;
