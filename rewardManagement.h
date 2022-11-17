@@ -5,7 +5,7 @@
     - will need function that determine if redeem points are enough
         - ie. function to check if points cost > customer points
 */
-//this is my change again...!
+
 #ifndef REWARDMANAGEMENT_H
 #define REWARDMANAGEMENT_H
 #include <fstream>
@@ -14,9 +14,11 @@
 #include <string>
 #include <vector>
 
+//rewards class
 class rewards
 {
 private:
+    //declaration of the 4 main variables of the class
     string gift;
     int giftValue;
     int moneySpent;
@@ -166,7 +168,7 @@ void rewards::logRewards(int rewNum)
     rewardsLog.close();
 }
 
-//inputing the values
+//inputing the name of the gift, returns the gift name
 string rewards::inputGift()
 {
     string gift = "";
@@ -186,6 +188,7 @@ string rewards::inputGift()
     return "Unable to enter a valid gift name";
 }
 
+//inputing the cost of the gift, returns the gift's cost
 int rewards::inputGiftValue()
 {
     int giftValue = 0;
@@ -205,6 +208,7 @@ int rewards::inputGiftValue()
     return 100;
 }
 
+//inputing the customers money spent, returns the value that they spent
 int rewards::inputMoneySpent()
 {
     int moneySpent = 0;
@@ -224,6 +228,7 @@ int rewards::inputMoneySpent()
     return 100;
 }
 
+//inputing the points received for the price earned, returns the amount of points earned
 int rewards::inputPointsEarned()
 {
     int pointsEarned = 0;
@@ -313,26 +318,21 @@ void rewards::redeemRewards()
     getline(cin, custUN);
     cout << "What gift would you like to reedeem?: " << endl;
     getline(cin, reward);
-    for(int i = 0; i < rews.size(); i++)
-    {
-        if (reward == rews[i].gift)
-        {
+    for(int i = 0; i < rews.size(); i++){
+        if (reward == rews[i].gift){
             rewardTemp = rews[i];
         }
+        else{}
     }
-    if (cust.custUNPresent(custUN))
-    {
-        if (cust.retrievePoints(custUN) > rewardTemp.giftValue)
-        {
+    if (cust.custUNPresent(custUN)){
+        if (cust.retrievePoints(custUN) > rewardTemp.giftValue){
             int newValue = cust.retrievePoints(custUN) - rewardTemp.giftValue;
         }
-        else
-        {
+        else{
             cout << "You do not have enough reward points for this gift" << endl;
         }
     }
-    else
-    {
+    else{
         cout << "This username is not associated with an account" << endl;
     }
 }
