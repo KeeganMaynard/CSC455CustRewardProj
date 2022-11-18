@@ -1,4 +1,4 @@
-product 1 P12345
-product 1 test
-product 1 $
-product 1 1 quantity in store
+product 0 P22345
+product 0 Tester2
+product 0 34
+product 0 3 quantity in store
