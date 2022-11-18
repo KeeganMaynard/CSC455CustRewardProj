@@ -51,7 +51,6 @@ public:
   void parseData(string);
   void logNewUser(int);
   string attachNums(int);
-  int retrievePoints(string);
   void displayCustData(int);
 
   // setter functions
@@ -607,34 +606,6 @@ string customer::attachNums(int count)
   }
 
   return padding;
-}
-
-/* int retrievePoints(string) - a method of the customer class, this function is utilized to gather the
-amount of rewards points a customer has.
-Parameters - string lookupID, the value of the customer username whose points we want to retrieve
-Return value - int custPoints, the value of the points attribute of the instance of customer selected by
-the username
-*/
-int customer::retrievePoints(string lookupID)
-{
-  // for each index in the vector
-  for (int i = 0; i < customers.size(); i++)
-  {
-    string &custUN = customers[i].username;
-    // test if cust UN equal to lookupID
-    if (custUN.compare(lookupID) == 0)
-    {
-      // retrieve that customer's points
-      int &custPoints = customers[i].custPoints;
-      return custPoints;
-    }
-    else
-    {
-      /*No need to catch else statement*/
-    }
-  }
-
-  return 0;
 }
 
 /* void displayCustData(int) - a method of the customer class, this function is utilized to retrieve and
