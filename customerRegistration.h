@@ -52,7 +52,6 @@ public:
   void logNewUser(int);
   string attachNums(int);
   int retrievePoints(string);
-  void updatePoints(string, int);
   void displayCustData(int);
 
   // setter functions
@@ -636,28 +635,6 @@ int customer::retrievePoints(string lookupID)
   }
 
   return 0;
-}
-
-/* void setPoints(string, int) - a method of the customer class, this function is utilized to update a
-customer's reward points attribute.
-Parameters - string lookupID and int newPoints
-  string lookupID - the value of the customer username whose points we want to update
-  int newPoints - the new value we want to set the points attribute to
-Return value - none
-*/
-void customer::updatePoints(string lookupID, int newPoints)
-{
-  // for each index in the vector
-  for (int i = 0; i < customers.size(); i++)
-  {
-    string &custUN = customers[i].username;
-    // test if cust UN equal to lookupID
-    if (custUN.compare(lookupID) == 0)
-    {
-      // update that customer's points
-      customers[i].custPoints = newPoints;
-    }
-  }
 }
 
 /* void displayCustData(int) - a method of the customer class, this function is utilized to retrieve and
