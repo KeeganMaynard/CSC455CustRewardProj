@@ -248,7 +248,7 @@ void customer::parseData(string line)
   loadCust.setCC(loadCC);
 
   line = line.substr(line.find_first_of(' ') + 1, line.length());
-  loadPoints = line.substr(0, line.find_first_of(' ') - 1);
+  loadPoints = line.substr(0, line.length());
   loadCust.setPoints(stoi(loadPoints));
 
   // append the customer to the vector of customers
