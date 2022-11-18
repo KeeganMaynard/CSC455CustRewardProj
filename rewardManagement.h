@@ -219,9 +219,9 @@ void rewards::redeemRewards(customer &cust)
       if (custUserN.compare(custUN) == 0)
       {
         customer &tempCust = cust.customers[i];
-        if (cust.retrievePoints(custUN) > rewardTemp.giftValue)
+        if (tempCust.getPoints() > rewardTemp.giftValue)
         {
-          int newValue = cust.retrievePoints(custUN) - rewardTemp.giftValue;
+          int newValue = tempCust.getPoints() - rewardTemp.giftValue;
           tempCust.setPoints(newValue);
           cout << "You have redeemed a Gift!!" << endl;
         }
