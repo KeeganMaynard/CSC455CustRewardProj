@@ -39,7 +39,7 @@ public:
   bool validID(string);
   bool validNumProduct(string);
   bool validPrice(string);
-  // vector<string> readProducts(string);
+  vector<string> readProducts(string);
 
   // items to check that IDs are unique
   bool productIdUnique(string);
@@ -137,19 +137,19 @@ void product::shutdown()
   }
 }
 
-// vector<string> product::readProducts(string f)
-// {
-//   fstream file;
-//   string line;
-//   file.open(f);
-//   vector<string> lines;
-//   file.open(f);
-//   while (getline(file, line))
-//   {
-//     lines.push_back(line);
-//   }
-//   return lines;
-// }
+vector<string> product::readProducts(string f)
+{
+  fstream file;
+  string line;
+  file.open(f);
+  vector<string> lines;
+  file.open(f);
+  while (getline(file, line))
+  {
+    lines.push_back(line);
+  }
+  return lines;
+}
 
 // add new product to inventory
 void product::addProduct()
@@ -221,6 +221,7 @@ product product::returnProduct(product prod, string id)
   }
 
   // Default return statement - will never be hit
+  return prod;
 }
 
 // get user input
@@ -239,6 +240,7 @@ string product::enterProductID()
     cout << "ID is invalid ";
     enterProductID();
   }
+  return " ";
 }
 
 string product::enterProductName()
@@ -266,6 +268,7 @@ string product::enterProductPrice()
     cout << "enter price in 000.00 format" << endl;
     enterProductPrice();
   }
+  return " ";
 }
 
 int product::enterNumProducts()
