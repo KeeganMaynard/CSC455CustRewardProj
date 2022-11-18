@@ -5,7 +5,6 @@
 #define PRODUCTMANAGMENT_H
 #include <fstream>
 #include <iostream>
-#include <sstream>
 #include <regex>
 #include <string>
 #include <vector>
@@ -40,6 +39,7 @@ public:
   bool validID(string);
   bool validNumProduct(string);
   bool validPrice(string);
+  // vector<string> readProducts(string);
 
   // items to check that IDs are unique
   bool productIdUnique(string);
@@ -136,6 +136,20 @@ void product::shutdown()
     logProduct(i);
   }
 }
+
+// vector<string> product::readProducts(string f)
+// {
+//   fstream file;
+//   string line;
+//   file.open(f);
+//   vector<string> lines;
+//   file.open(f);
+//   while (getline(file, line))
+//   {
+//     lines.push_back(line);
+//   }
+//   return lines;
+// }
 
 // add new product to inventory
 void product::addProduct()
@@ -356,10 +370,9 @@ void product::logProduct(int pNum)
   int &numProducts = products[pNum].numProducts;
 
   // open the log file and set to append data
-  ofstream pLog;
-  pLog.open("products.txt", ios::app);
+  ofstream plog;
+  plog.open("products.txt", ios::app);
 
-  ofstream plog("products.txt");
   plog << "product " << pNum << " " << productID << endl;
   plog << "product " << pNum << " " << productName << endl;
   plog << "product " << pNum << " " << productPrice << endl;
@@ -378,6 +391,8 @@ string product::toString2(product prod)
   cout << prod.getProductID() << endl;
   cout << prod.getName() << endl;
   cout << prod.getProductPrice() << endl;
+
+  return "";
 }
 
 void product::printProducts(product prod)
