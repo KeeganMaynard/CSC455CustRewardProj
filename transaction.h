@@ -54,7 +54,8 @@ class transaction {
   void setProductIDs(vector<string> ids) { productIDs = ids; }
   void setRewardPoints(int rPoints) { rewardPoints = rPoints; }
 
-  int completePurchase(customer cust, vector<product> &tempProds);
+  int completePurchase(customer cust, vector<product> &tempProds,
+                       vector<string> prodIds);
   vector<string> readFile(string file);
   vector<string> processProductIDs(string line);
   vector<transaction> createTransactions(vector<string> lines);
@@ -127,7 +128,7 @@ string transaction::toString(vector<string> ids) {
       finalString += ids[i];
     }
   }
-  cout << finalString << endl;
+  // cout << finalString << endl;
   return finalString;
 }
 
@@ -148,6 +149,7 @@ void transaction::writeTransactions(vector<transaction> transactions) {
 
 void transaction::shopping(customer &cust, product &prod) {
   string custUN, prodId;
+  vector<string> prodIds;
   bool play = true;
   bool notDone = true;
   while (play) {
@@ -166,10 +168,10 @@ void transaction::shopping(customer &cust, product &prod) {
             if (prodId.compare("q") == 0) {
               notDone = false;
             } else {
-              tempProds.push_back(prod.returnProduct(prod, prodId));
+              prodIds.push_back(prodId);
             }
           }
-          int rPoints = completePurchase(tempCust, tempProds);
+          int rPoints = completePurchase(tempCust, tempProds, prodIds);
           tempCust.setPoints(rPoints);
           play = false;
         } else {
@@ -183,23 +185,28 @@ void transaction::shopping(customer &cust, product &prod) {
   }
 }
 
-int transaction::completePurchase(customer cust, vector<product> &tempProds) {
+int transaction::completePurchase(customer cust, vector<product> &tempProds,
+                                  vector<string> prodIds) {
   transaction trans;
   int rPoints = 0;
   string quantity;
   trans.transactionID = to_string(100000 + (rand() % 999999));
   trans.setUserID(cust.getCustID());
-  for (int i = 0; i < tempProds.size(); i++) {
-    cout << "Enter the quantity of " + tempProds[i].getProductID() + ": ";
-    getline(cin, quantity);
-    if (validateQuantity(tempProds[i], stoi(quantity))) {
-      trans.productIDs.push_back(tempProds[i].getProductID());
-      trans.totalAmount +=
-          stoi(tempProds[i].getProductPrice()) * stoi(quantity);
-      tempProds[i].setNumProducts(tempProds[i].getNumProducts() -
-                                  stoi(quantity));
-    } else {
-      continue;  //? Gotta add stuff to this
+  for (int i = 0; i < prodIds.size(); i++) {
+    for (int j = 0; j < tempProds.size(); j++) {
+      if (prodIds[i].compare(tempProds[j].getProductID()) == 0) {
+        cout << "Enter the quantity of " + tempProds[i].getProductID() + ": ";
+        getline(cin, quantity);
+        if (validateQuantity(tempProds[i], stoi(quantity))) {
+          trans.productIDs.push_back(tempProds[j].getProductID());
+          trans.totalAmount +=
+              stoi(tempProds[j].getProductPrice()) * stoi(quantity);
+          tempProds[j].setNumProducts(tempProds[j].getNumProducts() -
+                                      stoi(quantity));
+        } else {
+          completePurchase(cust, tempProds, prodIds);
+        }
+      }
     }
   }
   rPoints = cust.getPoints() + trans.totalAmount / 5;
