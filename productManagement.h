@@ -241,6 +241,8 @@ string product::enterProductPrice()
   string price;
 
   cout << "Enter Product Price: ";
+  getline(cin, price);
+
   if (validPrice(price))
   {
     return price;
@@ -249,8 +251,6 @@ string product::enterProductPrice()
   {
     cout << "enter price in 000.00 format" << endl;
   }
-  getline(cin, price);
-  return price;
 }
 
 int product::enterNumProducts()
