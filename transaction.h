@@ -133,9 +133,7 @@ string transaction::toString(vector<string> ids) {
 
 void transaction::writeTransactions(vector<transaction> transactions) {
   fstream myFile;
-  cout << "writeTransactions ran" << endl;
   myFile.open("transactions.txt", ios::app);
-
   for (int i = 0; i < transactions.size(); i++) {
     myFile << "Transaction id: " << transactions[i].getTransactionID() << endl;
     myFile << "userID: " << transactions[i].getUserID() << endl;
@@ -150,13 +148,13 @@ void transaction::writeTransactions(vector<transaction> transactions) {
 
 void transaction::shopping(customer &cust, product &prod) {
   string custUN, prodId;
-  vector<product> tempProds;
   bool play = true;
   bool notDone = true;
   while (play) {
     cout << "Enter your username: ";
     getline(cin, custUN);
     if (cust.custUNPresent(custUN)) {
+      vector<product> &tempProds = prod.products;
       for (int i = 0; i < cust.customers.size(); i++) {
         if (custUN == cust.customers[i].getUserName()) {
           customer &tempCust = cust.customers[i];
@@ -165,10 +163,10 @@ void transaction::shopping(customer &cust, product &prod) {
             cout << "Enter the productId's you'd like to purchase, "
                     "enter 'q' to stop entering Ids: ";
             getline(cin, prodId);
-            if (prodId.compare("q")) {
-              tempProds.push_back(prod.returnProduct(prod, prodId));
-            } else {
+            if (prodId.compare("q") == 0) {
               notDone = false;
+            } else {
+              tempProds.push_back(prod.returnProduct(prod, prodId));
             }
           }
           int rPoints = completePurchase(tempCust, tempProds);
@@ -190,7 +188,6 @@ int transaction::completePurchase(customer cust, vector<product> &tempProds) {
   int rPoints = 0;
   string quantity;
   trans.transactionID = to_string(100000 + (rand() % 999999));
-
   trans.setUserID(cust.getCustID());
   for (int i = 0; i < tempProds.size(); i++) {
     cout << "Enter the quantity of " + tempProds[i].getProductID() + ": ";
@@ -199,6 +196,8 @@ int transaction::completePurchase(customer cust, vector<product> &tempProds) {
       trans.productIDs.push_back(tempProds[i].getProductID());
       trans.totalAmount +=
           stoi(tempProds[i].getProductPrice()) * stoi(quantity);
+      tempProds[i].setNumProducts(tempProds[i].getNumProducts() -
+                                  stoi(quantity));
     } else {
       continue;  //? Gotta add stuff to this
     }
