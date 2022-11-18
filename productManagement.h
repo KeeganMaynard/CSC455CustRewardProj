@@ -39,6 +39,7 @@ public:
   // input validation
   bool validID(string);
   bool validNumProduct(string);
+  bool validPrice(string);
 
   // items to check that IDs are unique
   bool productIdUnique(string);
@@ -94,12 +95,13 @@ void product::initilize()
   }
   else
   {
-    cout << "Error reading customers log file. Please ensure the file is "
-            "attached to store customer information."
+    cout << "Error reading products log file. Please ensure the file is "
+            "attached to store product information."
          << endl;
   }
 }
 
+// parse data from file into vector
 void product::parseData(string line)
 {
   string loadID, loadName, loadPrice, loadNum;
@@ -128,7 +130,7 @@ void product::shutdown()
   ofstream logFile("products.txt");
   logFile.close();
 
-  // write all customers remaining in vector
+  // write all products remaining
   for (int i = 0; i < products.size(); i++)
   {
     logProduct(i);
@@ -148,6 +150,8 @@ void product::addProduct()
   products.push_back(newProduct);
 
   logProduct(products.size() - 1);
+
+  cout << "\nproduct entered successfully\n\n";
 }
 
 // removes existing product from inventory
@@ -237,6 +241,14 @@ string product::enterProductPrice()
   string price;
 
   cout << "Enter Product Price: ";
+  if (validPrice(price))
+  {
+    return price;
+  }
+  else
+  {
+    cout << "enter price in 000.00 format" << endl;
+  }
   getline(cin, price);
   return price;
 }
@@ -274,6 +286,18 @@ bool product::validID(string id)
     {
       return false;
     }
+  }
+  else
+  {
+    return false;
+  }
+}
+
+bool product::validPrice(string p)
+{
+  if (regex_match(p, regex("^[0-9][0-9][0-9][.][0-9][0-9]$")) || regex_match(p, regex("^[0-9][0-9][.][0-9][0-9]$")) || regex_match(p, regex("^[0-9][.][0-9][0-9]$")))
+  {
+    return true;
   }
   else
   {
