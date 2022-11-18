@@ -1,4 +1,10 @@
-product 0 P22345
-product 0 Tester2
-product 0 34
-product 0 3 quantity in store
+product 0 ID P23012
+product 0 NAME test1
+product 0 PRICE 999.99
+product 0 QUANTITY 9000
+
+product 1 ID P12367
+product 1 NAME test2
+product 1 PRICE 1.03
+product 1 QUANTITY 5
+
