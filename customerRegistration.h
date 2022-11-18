@@ -52,7 +52,7 @@ public:
   void logNewUser(int);
   string attachNums(int);
   int retrievePoints(string);
-  void setPoints(string, int);
+  void updatePoints(string, int);
   void displayCustData(int);
 
   // setter functions
@@ -645,7 +645,7 @@ Parameters - string lookupID and int newPoints
   int newPoints - the new value we want to set the points attribute to
 Return value - none
 */
-void customer::setPoints(string lookupID, int newPoints)
+void customer::updatePoints(string lookupID, int newPoints)
 {
   // for each index in the vector
   for (int i = 0; i < customers.size(); i++)
