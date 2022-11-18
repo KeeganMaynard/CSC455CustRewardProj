@@ -1,1 +1,4 @@
-
+Gift: Gift1
+Gift Cost: 200
+Money Spent: 50
+Points Earned: 30
