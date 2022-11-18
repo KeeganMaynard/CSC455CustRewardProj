@@ -250,6 +250,7 @@ string product::enterProductPrice()
   else
   {
     cout << "enter price in 000.00 format" << endl;
+    enterProductPrice();
   }
 }
 
