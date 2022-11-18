@@ -122,10 +122,10 @@ void product::parseData(string line)
   loadPrice = line.substr(0, line.find_first_of(' '));
   loadProd.setProductPrice(loadPrice);
 
-  // line = line.substr(line.find_first_of(' ') + 1, line.length());
-  // loadNum = line.substr(0, line.length());
-  // loadProd.setNumProducts(stoi(loadNum));
-  loadProd.setNumProducts(20);
+  line = line.substr(line.find_first_of(' ') + 1, line.length());
+  loadNum = line.substr(0, line.length());
+  loadProd.setNumProducts(stoi(loadNum));
+  // loadProd.setNumProducts(20);
 
   products.push_back(loadProd);
 }
@@ -431,6 +431,7 @@ string product::toString2(product prod)
   cout << prod.getProductID() << endl;
   cout << prod.getName() << endl;
   cout << prod.getProductPrice() << endl;
+  cout << prod.getNumProducts() << endl;
 
   return "";
 }
@@ -443,6 +444,7 @@ void product::printProducts(product prod)
     cout << prod.products[i].getProductID() << endl;
     cout << prod.products[i].getName() << endl;
     cout << prod.products[i].getProductPrice() << endl;
+    cout << prod.products[i].getNumProducts() << endl;
   }
 }
 
