@@ -18,7 +18,7 @@
 class rewards
 {
 private:
-  // declaration of the 4 main variables of the class
+  // declaration of the 2 main variables of the class
   string gift;
   int giftValue;
   float redeemRate;
@@ -188,16 +188,12 @@ bool rewards::validateGiftValue(int newGiftValue)
   {
     return false;
   }
-
-  // Default return statement - will never be hit
-  return true;
 }
 
 // Able to check the customer ID and then redeem their points for whatever
 // specified reward
 void rewards::redeemRewards(customer &cust)
 {
-  customer cust;
   string custUN;
   string reward;
   rewards rewardTemp;
