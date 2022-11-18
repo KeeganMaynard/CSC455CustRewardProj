@@ -23,50 +23,53 @@ option based on input.
 Parameters - none
 Return value - 0, signifies successful run of the program.
 */
-int main() {
+int main()
+{
   srand(time(NULL));
   cust.initilize();
   prod.initilize();
   bool run = true;
-  while (run) {
+  while (run)
+  {
     string option = "";
     displayOpts();
 
     getline(cin, option);
     int iOption = stoi(option);
     // switch-case based on user input
-    switch (iOption) {
-      case 1:
-        cust.registerUser();
-        break;
-      case 2:
-        cust.removeCustomer();
-        break;
-      case 3:
-        prod.addProduct();
-        break;
-      case 4:
-        prod.removeProduct();
-        break;
-      case 5:
-        // enter redeem rate
-        break;
-      case 6:
-        trans.shopping(cust, prod);
-        break;
-      case 7:
-        cust.searchCustomer();
-        break;
-      case 8:
-        rew.redeemRewards();
-        break;
-      case 9:
-        cust.shutdown();
-        run = false;
-        break;
-      default:
-        cout << "Error. Invalid option entered. Please try again" << endl;
-        break;
+    switch (iOption)
+    {
+    case 1:
+      cust.registerUser();
+      break;
+    case 2:
+      cust.removeCustomer();
+      break;
+    case 3:
+      prod.addProduct();
+      break;
+    case 4:
+      prod.removeProduct();
+      break;
+    case 5:
+      // enter redeem rate
+      break;
+    case 6:
+      trans.shopping(cust, prod);
+      break;
+    case 7:
+      cust.searchCustomer();
+      break;
+    case 8:
+      rew.redeemRewards(cust);
+      break;
+    case 9:
+      cust.shutdown();
+      run = false;
+      break;
+    default:
+      cout << "Error. Invalid option entered. Please try again" << endl;
+      break;
     }
   }
 
@@ -74,9 +77,12 @@ int main() {
 }
 
 /* void displayOpts() - the purpose of this function is to display the program
-options to the user. Parameters - none Return value - none
+options to the user.
+Parameters - none
+Return value - none
 */
-void displayOpts() {
+void displayOpts()
+{
   cout << "\nSelect the number associated with the opperation you wish to "
           "perform"
        << endl;

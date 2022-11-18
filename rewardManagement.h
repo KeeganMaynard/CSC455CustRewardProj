@@ -39,7 +39,7 @@ public:
   void logRewards(int);
   bool validateGift(string);
   bool validateGiftValue(int);
-  void redeemRewards();
+  void redeemRewards(customer &);
 
   // setters
   void setGift(string newGift) { gift = newGift; }
@@ -195,7 +195,7 @@ bool rewards::validateGiftValue(int newGiftValue)
 
 // Able to check the customer ID and then redeem their points for whatever
 // specified reward
-void rewards::redeemRewards()
+void rewards::redeemRewards(customer &cust)
 {
   customer cust;
   string custUN;
