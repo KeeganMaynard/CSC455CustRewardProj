@@ -150,7 +150,6 @@ void transaction::writeTransactions(vector<transaction> transactions) {
 
 void transaction::shopping(customer &cust, product &prod) {
   string custUN, prodId;
-
   vector<product> tempProds;
   bool play = true;
   bool notDone = true;
@@ -161,24 +160,37 @@ void transaction::shopping(customer &cust, product &prod) {
       for (int i = 0; i < cust.customers.size(); i++) {
         if (custUN == cust.customers[i].getUserName()) {
           customer &tempCust = cust.customers[i];
+          prod.printProducts(prod);
+          while (notDone) {
+            cout << "Enter the productId's you'd like to purchase, "
+                    "enter 'q' to stop entering Ids: ";
+            cin >> prodId;
+            if (prodId.compare("q")) {
+              tempProds.push_back(prod.returnProduct(prod, prodId));
+            } else {
+              notDone = false;
+            }
+          }
+          int rPoints = completePurchase(tempCust, tempProds);
+          tempCust.setPoints(rPoints);
           play = false;
         } else {
           continue;
         }
       }
-      prod.printProducts(prod);
-      while (notDone) {
-        cout << "Enter the productId's you'd like to purchase, "
-                "enter 'q' to stop entering Ids: ";
-        cin >> prodId;
-        if (prodId.compare("q")) {
-          tempProds.push_back(prod.returnProduct(prod, prodId));
-        } else {
-          notDone = false;
-        }
-      }
-      int rPoints = completePurchase(tempCust, tempProds);
-      tempCust.setPoints(rPoints);
+      // prod.printProducts(prod);
+      // while (notDone) {
+      //   cout << "Enter the productId's you'd like to purchase, "
+      //           "enter 'q' to stop entering Ids: ";
+      //   cin >> prodId;
+      //   if (prodId.compare("q")) {
+      //     tempProds.push_back(prod.returnProduct(prod, prodId));
+      //   } else {
+      //     notDone = false;
+      //   }
+      // }
+      // int rPoints = completePurchase(tempCust, tempProds);
+      // tempCust.setPoints(rPoints);
     } else {
       cout << "The Username does not exist! Enter again." << endl;
       play = true;
