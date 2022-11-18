@@ -15,55 +15,52 @@ using namespace std;
 void displayOpts();
 customer cust;
 product prod;
-transaction trans;
+// transaction trans;
 rewards rew;
 
 /* int main() - the driver of our program, gathers user input and performs an
 option based on input. Parameters - none Return value - 0, signifies successful
 run of the program.
 */
-int main()
-{
+int main() {
   cust.initilize();
   prod.initilize();
   bool run = true;
-  while (run)
-  {
+  while (run) {
     string option = "";
     displayOpts();
     getline(cin, option);
 
     // switch-case based on user input
-    switch (stoi(option))
-    {
-    case 1:
-      cust.registerUser();
-      break;
-    case 2:
-      cust.removeCustomer();
-      break;
-    case 3:
-      prod.addProduct();
-      break;
-    case 4:
-      prod.removeProduct();
-      break;
-    case 5:
-      trans.shopping(cust, prod);
-      break;
-    case 6:
-      cust.searchCustomer();
-      break;
-    case 7:
-      rew.redeemRewards();
-      break;
-    case 8:
-      cust.shutdown();
-      run = false;
-      break;
-    default:
-      cout << "Error. Invalid option entered. Please try again" << endl;
-      break;
+    switch (stoi(option)) {
+      case 1:
+        cust.registerUser();
+        break;
+      case 2:
+        cust.removeCustomer();
+        break;
+      case 3:
+        prod.addProduct();
+        break;
+      case 4:
+        prod.removeProduct();
+        break;
+      case 5:
+        // trans.shopping(cust, prod);
+        break;
+      case 6:
+        cust.searchCustomer();
+        break;
+      case 7:
+        rew.redeemRewards();
+        break;
+      case 8:
+        cust.shutdown();
+        run = false;
+        break;
+      default:
+        cout << "Error. Invalid option entered. Please try again" << endl;
+        break;
     }
   }
 
@@ -73,8 +70,7 @@ int main()
 /* void displayOpts() - the purpose of this function is to display the program
 options to the user. Parameters - none Return value - none
 */
-void displayOpts()
-{
+void displayOpts() {
   cout << "Select the number associated with the opperation you wish to perform"
        << endl;
   cout << "[1] Customer registration" << endl;

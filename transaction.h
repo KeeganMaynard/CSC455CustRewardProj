@@ -17,7 +17,7 @@ using namespace std;
 class transaction {
  public:
   string transactionID;
-  string userID;
+  static string userID;
   vector<string> productIDs;
   float totalAmount;
   int rewardPoints;
@@ -49,7 +49,7 @@ class transaction {
 
   void setUserID(string id) { userID = id; }
 
-  void completePurchase(customer &cust, product tempProd);
+  void completePurchase(customer &cust, vector<product> tempProds);
 
   void setTotalAmount(float amount) { totalAmount = amount; }
   void setProductIDs(vector<string> ids) { productIDs = ids; }
@@ -118,7 +118,7 @@ void transaction::writeTransactions(vector<transaction> &transactions) {
   myFile.open("transactions.txt", ios::app);
   for (int i = 0; i <= transactions.size(); i++) {
     myFile << transactions[i].transactionID << endl;
-    myFile << transactions[i].userID << endl;
+    // myFile << transactions[i].userID << endl;
     myFile << toString(transactions[i].productIDs) << endl;
     myFile << transactions[i].totalAmount << endl;
     myFile << transactions[i].rewardPoints << endl;
@@ -148,9 +148,9 @@ void transaction::shopping(customer &cust, product &prod) {
       while (notDone) {
         cout << "Enter the productId you'd like to purchase: ";
         cin >> prodId;
-        tempProd
+        tempProds.push_back(prod.returnProduct(prod, prodId));
       }
-      completePurchase(cust, tempProd);
+      // completePurchase(cust, tempProds);
     } else {
       cout << "The Username does not exist! Enter again." << endl;
       play = true;
@@ -158,16 +158,16 @@ void transaction::shopping(customer &cust, product &prod) {
   }
 }
 
-// string transactionID;
-// string userID;
-// vector<string> productIDs;
-// float totalAmount;
-// int rewardPoints;
-// vector<transaction> transactions;
 void transaction::completePurchase(customer &cust, vector<product> tempProds) {
   transaction trans;
-  trans.setUserID(cust.getCustID());
+  trans.transactionID = to_string(100000 + (rand() % 999999));
+  // trans.setUserID(cust.getCustID());
   for (int i = 0; i < tempProds.size(); i++) {
-    trans.transactions.push_back(tempProds[i]);
+    trans.productIDs.push_back(tempProds[i].getProductID());
+    trans.totalAmount += stoi(tempProds[i].getProductPrice());
   }
+  trans.rewardPoints = cust.getPoints() + trans.totalAmount / 5;
+  cust.setPoints(cust.getPoints() + trans.totalAmount / 5);
+  transactions.push_back(trans);
+  writeTransactions(transactions);
 }
