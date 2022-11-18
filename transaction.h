@@ -54,7 +54,7 @@ class transaction {
   void setProductIDs(vector<string> ids) { productIDs = ids; }
   void setRewardPoints(int rPoints) { rewardPoints = rPoints; }
 
-  void completePurchase(customer cust, vector<product> &tempProds);
+  int completePurchase(customer cust, vector<product> &tempProds);
   vector<string> readFile(string file);
   vector<string> processProductIDs(string line);
   vector<transaction> createTransactions(vector<string> lines);
@@ -150,17 +150,17 @@ void transaction::writeTransactions(vector<transaction> transactions) {
 
 void transaction::shopping(customer &cust, product &prod) {
   string custUN, prodId;
-  customer tempCust;
+
   vector<product> tempProds;
   bool play = true;
   bool notDone = true;
   while (play) {
-    cout << "Enter your username number: ";
+    cout << "Enter your username: ";
     cin >> custUN;
     if (cust.custUNPresent(custUN)) {
       for (int i = 0; i < cust.customers.size(); i++) {
         if (custUN == cust.customers[i].getUserName()) {
-          tempCust = cust.customers[i];
+          customer &tempCust = cust.customers[i];
           play = false;
         } else {
           continue;
@@ -168,7 +168,7 @@ void transaction::shopping(customer &cust, product &prod) {
       }
       prod.printProducts(prod);
       while (notDone) {
-        cout << "Enter the productId's and quanitity you'd like to purchase, "
+        cout << "Enter the productId's you'd like to purchase, "
                 "enter 'q' to stop entering Ids: ";
         cin >> prodId;
         if (prodId.compare("q")) {
@@ -177,7 +177,8 @@ void transaction::shopping(customer &cust, product &prod) {
           notDone = false;
         }
       }
-      completePurchase(tempCust, tempProds);
+      int rPoints = completePurchase(tempCust, tempProds);
+      tempCust.setPoints(rPoints);
     } else {
       cout << "The Username does not exist! Enter again." << endl;
       play = true;
@@ -185,8 +186,9 @@ void transaction::shopping(customer &cust, product &prod) {
   }
 }
 
-void transaction::completePurchase(customer cust, vector<product> &tempProds) {
+int transaction::completePurchase(customer cust, vector<product> &tempProds) {
   transaction trans;
+  int rPoints = 0;
   int quantity;
   trans.transactionID = to_string(100000 + (rand() % 999999));
 
@@ -201,10 +203,11 @@ void transaction::completePurchase(customer cust, vector<product> &tempProds) {
       continue;  //? Gotta add stuff to this
     }
   }
-  trans.rewardPoints = cust.getPoints() + trans.totalAmount / 5;
-  cust.setPoints(cust.getPoints() + trans.getRewardPoints());
+  rPoints = cust.getPoints() + trans.totalAmount / 5;
+  trans.rewardPoints = rPoints;
   transactions.push_back(trans);
   writeTransactions(transactions);
+  return rPoints;
 }
 
 bool transaction::validateQuantity(product prod, int quantity) {
