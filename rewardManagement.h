@@ -215,7 +215,7 @@ void rewards::redeemRewards(customer &cust)
   {
     for (int i = 0; i < cust.customers.size(); i++)
     {
-      string &custUserN = cust.customers[i].getUserName();
+      string custUserN = cust.customers[i].getUserName();
       if (custUserN.compare(custUN) == 0)
       {
         customer &tempCust = cust.customers[i];
