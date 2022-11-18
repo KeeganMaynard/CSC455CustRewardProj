@@ -10,15 +10,14 @@
 #include <vector>
 using namespace std;
 
-class product
-{
-private:
+class product {
+ private:
   string productID;
   string productName;
   string productPrice;
   int numProducts;
 
-public:
+ public:
   product(){};
   void initilize();
 
@@ -68,47 +67,38 @@ public:
 parameters - N/A
 return - void
 */
-void product::initilize()
-{
+void product::initilize() {
   ifstream pLog;
   pLog.open("products.txt");
 
-  if (pLog.is_open())
-  {
+  if (pLog.is_open()) {
     string line;
     string temp;
     string buffer;
-    while (getline(pLog, line))
-    {
+    while (getline(pLog, line)) {
       // parse data gathered from line
-      if (!line.empty()) // Break on empty line
+      if (!line.empty())  // Break on empty line
       {
         temp = line.substr(line.find_last_of(' ') + 1, line.length());
         buffer = buffer + temp + " ";
-      }
-      else
-      {
+      } else {
         parseData(buffer);
         temp = "";
         buffer = "";
       }
     }
     pLog.close();
-  }
-  else
-  {
+  } else {
     cout << "Error reading products log file. Please ensure the file is "
             "attached to store product information."
          << endl;
   }
 }
 
-/* void product::parseDate(string) - parse product attributes and append onto vector
-parameters - string of the line to parse into vector
-return - void
+/* void product::parseDate(string) - parse product attributes and append onto
+vector parameters - string of the line to parse into vector return - void
 */
-void product::parseData(string line)
-{
+void product::parseData(string line) {
   string loadID, loadName, loadPrice, loadNum;
   product loadProd;
   loadID = line.substr(0, line.find_first_of(' '));
@@ -133,15 +123,13 @@ void product::parseData(string line)
 parameters - N/A
 return - void
 */
-void product::shutdown()
-{
+void product::shutdown() {
   // clear the text file to avoid duplicates
   ofstream logFile("products.txt");
   logFile.close();
 
   // write all products remaining
-  for (int i = 0; i < products.size(); i++)
-  {
+  for (int i = 0; i < products.size(); i++) {
     logProduct(i);
   }
 }
@@ -149,8 +137,7 @@ void product::shutdown()
 parameters - N/A
 return - void
 */
-void product::addProduct()
-{
+void product::addProduct() {
   product newProduct;
 
   newProduct.setProductID(enterProductID());
@@ -169,37 +156,28 @@ void product::addProduct()
 parameters - N/A
 return - void
 */
-void product::removeProduct()
-{
+void product::removeProduct() {
   string prodID;
 
   cout << "Enter product ID for product you wish to remove: ";
   getline(cin, prodID);
 
-  if (!productIdUnique(prodID))
-  {
+  if (!productIdUnique(prodID)) {
     products.erase(products.begin() + findProduct(prodID));
-  }
-  else
-  {
+  } else {
     cout << "Product ID does not exist ";
   }
 }
 
-/* int product::findProduct(string) - used by remove product so to find product entered by user for removal
-parameters - string id of the product wanted for removal
-return - int of vector index of removed product
+/* int product::findProduct(string) - used by remove product so to find product
+entered by user for removal parameters - string id of the product wanted for
+removal return - int of vector index of removed product
 */
-int product::findProduct(string id)
-{
-  for (int i = 0; i < products.size(); i++)
-  {
-    if (products[i].productID == id)
-    {
+int product::findProduct(string id) {
+  for (int i = 0; i < products.size(); i++) {
+    if (products[i].productID == id) {
       return i;
-    }
-    else
-    {
+    } else {
       // continue through loop
     }
   }
@@ -212,16 +190,11 @@ int product::findProduct(string id)
 parameters - product prod string id
 return - product
 */
-product product::returnProduct(product prod, string id)
-{
-  for (int i = 0; i < prod.products.size(); i++)
-  {
-    if (prod.products[i].getProductID() == id)
-    {
+product product::returnProduct(product prod, string id) {
+  for (int i = 0; i < prod.products.size(); i++) {
+    if (prod.products[i].getProductID() == id) {
       return prod.products[i];
-    }
-    else
-    {
+    } else {
       // continue through loop
     }
   }
@@ -234,18 +207,14 @@ product product::returnProduct(product prod, string id)
 parameters - N/A
 return - string of product ID
 */
-string product::enterProductID()
-{
+string product::enterProductID() {
   string ID;
 
   cout << "Enter Product ID: ";
   getline(cin, ID);
-  if (validID(ID))
-  {
+  if (validID(ID)) {
     return ID;
-  }
-  else
-  {
+  } else {
     cout << "ID is invalid ";
     enterProductID();
   }
@@ -256,8 +225,7 @@ string product::enterProductID()
 parameters - N/A
 return - string of product Name
 */
-string product::enterProductName()
-{
+string product::enterProductName() {
   string name;
 
   cout << "Enter Product Name: ";
@@ -269,19 +237,15 @@ string product::enterProductName()
 parameters - N/A
 return - string of product Price
 */
-string product::enterProductPrice()
-{
+string product::enterProductPrice() {
   string price;
 
   cout << "Enter Product Price: ";
   getline(cin, price);
 
-  if (validPrice(price))
-  {
+  if (validPrice(price)) {
     return price;
-  }
-  else
-  {
+  } else {
     cout << "enter price in 000.00 format" << endl;
     enterProductPrice();
   }
@@ -292,18 +256,14 @@ string product::enterProductPrice()
 parameters - N/A
 return - int of quantity of product
 */
-int product::enterNumProducts()
-{
+int product::enterNumProducts() {
   string products;
 
   cout << "Enter Quantity of Product : ";
   getline(cin, products);
-  if (validNumProduct(products))
-  {
+  if (validNumProduct(products)) {
     return stoi(products);
-  }
-  else
-  {
+  } else {
     cout << "Quantity of Product Invalid ";
     enterNumProducts();
   }
@@ -316,21 +276,14 @@ int product::enterNumProducts()
 parameters - string id to be validated
 return - bool T if id is valid
 */
-bool product::validID(string id)
-{
-  if (productIdUnique(id))
-  {
-    if (regex_match(id, regex("^[P][0-9][0-9][0-9][0-9][0-9]$")))
-    {
+bool product::validID(string id) {
+  if (productIdUnique(id)) {
+    if (regex_match(id, regex("^[P][0-9][0-9][0-9][0-9][0-9]$"))) {
       return true;
-    }
-    else
-    {
+    } else {
       return false;
     }
-  }
-  else
-  {
+  } else {
     return false;
   }
 }
@@ -339,14 +292,12 @@ bool product::validID(string id)
 parameters - string p to be validated
 return - bool T if id is valid
 */
-bool product::validPrice(string p)
-{
-  if (regex_match(p, regex("^[0-9][0-9][0-9][.][0-9][0-9]$")) || regex_match(p, regex("^[0-9][0-9][.][0-9][0-9]$")) || regex_match(p, regex("^[0-9][.][0-9][0-9]$")))
-  {
+bool product::validPrice(string p) {
+  if (regex_match(p, regex("^[0-9][0-9][0-9][.][0-9][0-9]$")) ||
+      regex_match(p, regex("^[0-9][0-9][.][0-9][0-9]$")) ||
+      regex_match(p, regex("^[0-9][.][0-9][0-9]$"))) {
     return true;
-  }
-  else
-  {
+  } else {
     return false;
   }
 }
@@ -355,24 +306,16 @@ bool product::validPrice(string p)
 parameters - string p to be validated
 return - bool T if id is valid
 */
-bool product::validNumProduct(string p)
-{
-  for (int i = 0; i > p.length(); i++)
-  {
-    if (isdigit(p[i]))
-    {
-    }
-    else
-    {
+bool product::validNumProduct(string p) {
+  for (int i = 0; i > p.length(); i++) {
+    if (isdigit(p[i])) {
+    } else {
       return false;
     }
   }
-  if (stoi(p) > 0)
-  {
+  if (stoi(p) > 0) {
     return true;
-  }
-  else
-  {
+  } else {
     return false;
   }
 }
@@ -381,16 +324,11 @@ bool product::validNumProduct(string p)
 parameters - string id to be validated
 return - bool T if id is valid
 */
-bool product::productIdUnique(string id)
-{
-  for (int i = 0; i < products.size(); i++)
-  {
-    if (products[i].productID == id)
-    {
+bool product::productIdUnique(string id) {
+  for (int i = 0; i < products.size(); i++) {
+    if (products[i].productID == id) {
       return false;
-    }
-    else
-    {
+    } else {
       return true;
     }
   }
@@ -403,8 +341,7 @@ bool product::productIdUnique(string id)
 parameters - int pNum to specifiy index of products vector to be logged
 return - void
 */
-void product::logProduct(int pNum)
-{
+void product::logProduct(int pNum) {
   string &productID = products[pNum].productID;
   string &productName = products[pNum].productName;
   string &productPrice = products[pNum].productPrice;
@@ -426,8 +363,7 @@ void product::logProduct(int pNum)
 parameters - product to print
 return - string of product info
 */
-string product::toString2(product prod)
-{
+string product::toString2(product prod) {
   cout << prod.getProductID() << endl;
   cout << prod.getName() << endl;
   cout << prod.getProductPrice() << endl;
@@ -436,15 +372,14 @@ string product::toString2(product prod)
   return "";
 }
 
-void product::printProducts(product prod)
-{
+void product::printProducts(product prod) {
   cout << "print products ran" << endl;
-  for (int i = 0; i < prod.products.size(); i++)
-  {
-    cout << prod.products[i].getProductID() << endl;
-    cout << prod.products[i].getName() << endl;
-    cout << prod.products[i].getProductPrice() << endl;
-    cout << prod.products[i].getNumProducts() << endl;
+  for (int i = 0; i < prod.products.size(); i++) {
+    cout << "Product ID: " << prod.products[i].getProductID() << endl;
+    cout << "Product Name: " << prod.products[i].getName() << endl;
+    cout << "Product Price: " << prod.products[i].getProductPrice() << endl;
+    cout << "Product Quantity: " << prod.products[i].getNumProducts() << endl;
+    cout << endl;
   }
 }
 
