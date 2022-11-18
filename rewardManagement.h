@@ -241,6 +241,10 @@ bool rewards::validateGiftValue(int newGiftValue)
     {
       return true;
     }
+    else
+    {
+      return false;
+    }
   }
   else
   {
