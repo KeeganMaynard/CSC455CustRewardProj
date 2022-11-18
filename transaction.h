@@ -128,22 +128,26 @@ void transaction::shopping(customer &cust, product &prod) {
   string custUN, prodId;
   customer *tempCust;
   product tempProd;
-  cout << "Enter your username number: ";
-  cin >> custUN;
-  if (cust.custUNPresent(custUN)) {
-    for (int i = 0; i < cust.customers.size(); i++) {
-      if (custUN == cust.customers[i].getUserName()) {
-        tempCust = &cust.customers[i];
-
-      } else {
-        continue;
+  bool play = true;
+  while (play) {
+    cout << "Enter your username number: ";
+    cin >> custUN;
+    if (cust.custUNPresent(custUN)) {
+      for (int i = 0; i < cust.customers.size(); i++) {
+        if (custUN == cust.customers[i].getUserName()) {
+          tempCust = &cust.customers[i];
+          play = false;
+        } else {
+          continue;
+        }
       }
+      prod.printProducts(prod);
+      cout << "Enter the productId you'd like to purchase: ";
+      cin >> prodId;
+      tempProd = prod.returnProduct(prod, prodId);
+    } else {
+      cout << "The Username does not exist! Enter again." << endl;
+      play = true;
     }
-    prod.printProducts(prod);
-    cout<< "Enter the productId you'd like to purchase: ";
-    cin >> prodId;
-    //tempProd = prod.returnProduct(prod, prodId);
-  } else {
-    cout << "The Username does not exist!" << endl;
   }
 }
