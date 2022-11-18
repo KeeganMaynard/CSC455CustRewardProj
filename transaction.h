@@ -17,7 +17,7 @@ using namespace std;
 class transaction {
  public:
   string transactionID;
-  static string userID;
+  string userID;
   vector<string> productIDs;
   float totalAmount;
   int rewardPoints;
@@ -150,7 +150,7 @@ void transaction::shopping(customer &cust, product &prod) {
         cin >> prodId;
         tempProds.push_back(prod.returnProduct(prod, prodId));
       }
-      // completePurchase(cust, tempProds);
+      completePurchase(cust, tempProds);
     } else {
       cout << "The Username does not exist! Enter again." << endl;
       play = true;
