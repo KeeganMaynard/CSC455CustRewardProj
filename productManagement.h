@@ -117,9 +117,10 @@ void product::parseData(string line)
   loadPrice = line.substr(0, line.find_first_of(' '));
   loadProd.setProductPrice(loadPrice);
 
-  line = line.substr(line.find_first_of(' ') + 1, line.length());
-  loadNum = line.substr(0, line.find_first_of(' '));
-  loadProd.setNumProducts(stoi(loadNum));
+  // line = line.substr(line.find_first_of(' ') + 1, line.length());
+  // loadNum = line.substr(0, line.length());
+  // loadProd.setNumProducts(stoi(loadNum));
+  loadProd.setNumProducts(20);
 
   products.push_back(loadProd);
 }
@@ -376,10 +377,10 @@ void product::logProduct(int pNum)
   ofstream plog;
   plog.open("products.txt", ios::app);
 
-  plog << "product " << pNum << " " << productID << endl;
-  plog << "product " << pNum << " " << productName << endl;
-  plog << "product " << pNum << " " << productPrice << endl;
-  plog << "product " << pNum << " " << numProducts << " quantity in store" << endl;
+  plog << "product " << pNum << " ID " << productID << endl;
+  plog << "product " << pNum << " NAME " << productName << endl;
+  plog << "product " << pNum << " PRICE " << productPrice << endl;
+  plog << "product " << pNum << " QUANTITY " << numProducts << "\n\n";
 
   plog.close();
 }
