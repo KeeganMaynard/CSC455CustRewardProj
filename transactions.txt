@@ -1,13 +1,18 @@
-test
-test
-t0,t1,t2,t3,t4,t5,t6,t7,t8,t9
-1.4
-10
+Transaction id: 100041
+userID: CID0000000001
+Product Ids: P23012
+Total transaction amount: 999
+Reward Points: 244
 
-test2
-test2
-t0,t1,t2,t3,t4,t5,t6,t7,t8,t9
-2.4
-11
+Transaction id: 100041
+userID: CID0000000001
+Product Ids: P12367
+Total transaction amount: 1
+Reward Points: 45
 
+Transaction id: 109615
+userID: CID0000000001
+Product Ids: P23012
+Total transaction amount: 9990
+Reward Points: 2043
 

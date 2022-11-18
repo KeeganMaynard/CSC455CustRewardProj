@@ -14,6 +14,7 @@
 #include "rewardManagement.h"
 
 using namespace std;
+
 class transaction {
  public:
   string transactionID;
@@ -49,17 +50,17 @@ class transaction {
 
   void setUserID(string id) { userID = id; }
 
-  void completePurchase(customer &cust, vector<product> tempProds);
-
   void setTotalAmount(float amount) { totalAmount = amount; }
   void setProductIDs(vector<string> ids) { productIDs = ids; }
   void setRewardPoints(int rPoints) { rewardPoints = rPoints; }
 
+  void completePurchase(&customer cust, vector<product> &tempProds);
   vector<string> readFile(string file);
   vector<string> processProductIDs(string line);
   vector<transaction> createTransactions(vector<string> lines);
-  void writeTransactions(vector<transaction> &transactions);
+  void writeTransactions(vector<transaction> transactions);
   void shopping(customer &cust, product &prod);
+  bool validateQuantity(product prod, int quantity);
 };
 
 vector<string> transaction::readFile(string file) {
@@ -130,22 +131,26 @@ string transaction::toString(vector<string> ids) {
   return finalString;
 }
 
-void transaction::writeTransactions(vector<transaction> &transactions) {
+void transaction::writeTransactions(vector<transaction> transactions) {
   fstream myFile;
+  cout << "writeTransactions ran" << endl;
   myFile.open("transactions.txt", ios::app);
-  for (int i = 0; i <= transactions.size(); i++) {
-    myFile << transactions[i].transactionID << endl;
-    // myFile << transactions[i].userID << endl;
-    myFile << toString(transactions[i].productIDs) << endl;
-    myFile << transactions[i].totalAmount << endl;
-    myFile << transactions[i].rewardPoints << endl;
+
+  for (int i = 0; i < transactions.size(); i++) {
+    myFile << "Transaction id: " << transactions[i].getTransactionID() << endl;
+    myFile << "userID: " << transactions[i].getUserID() << endl;
+    myFile << "Product Ids: " << toString(transactions[i].productIDs) << endl;
+    myFile << "Total transaction amount: " << transactions[i].totalAmount
+           << endl;
+    myFile << "Reward Points: " << transactions[i].rewardPoints << endl;
     myFile << endl;
   }
+  myFile.close();
 }
 
 void transaction::shopping(customer &cust, product &prod) {
   string custUN, prodId;
-  customer *tempCust;
+  customer tempCust;
   vector<product> tempProds;
   bool play = true;
   bool notDone = true;
@@ -163,11 +168,16 @@ void transaction::shopping(customer &cust, product &prod) {
       }
       prod.printProducts(prod);
       while (notDone) {
-        cout << "Enter the productId you'd like to purchase: ";
+        cout << "Enter the productId's and quanitity you'd like to purchase, "
+                "enter 'q' to stop entering Ids: ";
         cin >> prodId;
-        tempProds.push_back(prod.returnProduct(prod, prodId));
+        if (prodId.compare("q")) {
+          tempProds.push_back(prod.returnProduct(prod, prodId));
+        } else {
+          notDone = false;
+        }
       }
-      completePurchase(cust, tempProds);
+      completePurchase(tempCust, tempProds);
     } else {
       cout << "The Username does not exist! Enter again." << endl;
       play = true;
@@ -175,16 +185,32 @@ void transaction::shopping(customer &cust, product &prod) {
   }
 }
 
-void transaction::completePurchase(customer &cust, vector<product> tempProds) {
+void transaction::completePurchase(customer &cust, vector<product> &tempProds) {
   transaction trans;
+  int quantity;
   trans.transactionID = to_string(100000 + (rand() % 999999));
-  // trans.setUserID(cust.getCustID());
+
+  trans.setUserID(cust.getCustID());
   for (int i = 0; i < tempProds.size(); i++) {
-    trans.productIDs.push_back(tempProds[i].getProductID());
-    trans.totalAmount += stoi(tempProds[i].getProductPrice());
+    cout << "Enter the quantity of " + tempProds[i].getProductID() + ": ";
+    cin >> quantity;
+    if (validateQuantity(tempProds[i], quantity)) {
+      trans.productIDs.push_back(tempProds[i].getProductID());
+      trans.totalAmount += stoi(tempProds[i].getProductPrice()) * quantity;
+    } else {
+      continue;  //? Gotta add stuff to this
+    }
   }
   trans.rewardPoints = cust.getPoints() + trans.totalAmount / 5;
-  cust.setPoints(cust.getPoints() + trans.totalAmount / 5);
+  cust.setPoints(cust.getPoints() + trans.getRewardPoints());
   transactions.push_back(trans);
   writeTransactions(transactions);
+}
+
+bool transaction::validateQuantity(product prod, int quantity) {
+  if (quantity > prod.getNumProducts()) {
+    return false;
+  } else {
+    return true;
+  }
 }
