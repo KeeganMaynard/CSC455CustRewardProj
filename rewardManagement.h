@@ -213,14 +213,23 @@ void rewards::redeemRewards(customer &cust)
   }
   if (cust.custUNPresent(custUN))
   {
-    if (cust.retrievePoints(custUN) > rewardTemp.giftValue)
+    for (int i = 0; i < cust.customers.size(); i++)
     {
-      int newValue = cust.retrievePoints(custUN) - rewardTemp.giftValue;
-      cout << "You have redeemed a Gift!!" << endl;
-    }
-    else
-    {
-      cout << "You do not have enough reward points for this gift" << endl;
+      string &custUserN = cust.customers[i].getUserName();
+      if (custUserN.compare(custUN) == 0)
+      {
+        customer &tempCust = cust.customers[i];
+        if (cust.retrievePoints(custUN) > rewardTemp.giftValue)
+        {
+          int newValue = cust.retrievePoints(custUN) - rewardTemp.giftValue;
+          tempCust.setPoints(newValue);
+          cout << "You have redeemed a Gift!!" << endl;
+        }
+        else
+        {
+          cout << "You do not have enough reward points for this gift" << endl;
+        }
+      }
     }
   }
   else
