@@ -14,6 +14,65 @@
 #include <string>
 #include <vector>
 
+class redeemRate
+{
+private:
+  float redRate;
+
+public:
+  // default constructor
+  redeemRate()
+  {
+    redRate = .5;
+  }
+
+  // utility functions
+  void inputRate();
+  void logRate();
+  void loadRate();
+
+  // setter and getter
+  void setRedeemRate(float newRate) { redRate = newRate; }
+  float getRedeemRate() { return redRate; }
+};
+
+void redeemRate::inputRate()
+{
+  string newRate = "";
+  cout << "Enter the percentage of points the customer should earn per dollar spent: ";
+  getline(cin, newRate);
+  float newPercent = stof(newRate);
+  setRedeemRate(newPercent);
+  logRate();
+}
+
+void redeemRate::logRate()
+{
+  ofstream rateLog;
+  rateLog.open("rate.txt");
+
+  rateLog << getRedeemRate() << endl;
+  rateLog.close();
+}
+
+void redeemRate::loadRate()
+{
+  ifstream rateLog;
+  rateLog.open("rate.txt");
+
+  if (rateLog.is_open())
+  {
+    string line;
+    getline(rateLog, line);
+    float loadRate = stof(line);
+    setRedeemRate(loadRate);
+  }
+  else
+  {
+    cout << "Error reading the log file. Please ensure the file is attached to store the rate information" << endl;
+  }
+}
+
 // rewards class
 class rewards
 {
@@ -21,7 +80,6 @@ private:
   // declaration of the 2 main variables of the class
   string gift;
   int giftValue;
-  float redeemRate;
 
 public:
   // vector initialization

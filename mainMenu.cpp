@@ -17,6 +17,7 @@ customer cust;
 product prod;
 transaction trans;
 rewards rew;
+redeemRate redRate;
 
 /* int main() - the driver of our program, gathers user input and performs an
 option based on input.
@@ -52,7 +53,7 @@ int main()
       prod.removeProduct();
       break;
     case 5:
-      // enter redeem rate
+      redRate.inputRate();
       break;
     case 6:
       trans.shopping(cust, prod);
