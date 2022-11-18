@@ -15,4 +15,63 @@ userID: CID0000000001
 Product Ids: P23012
 Total transaction amount: 9990
 Reward Points: 2043
+Transaction id: 114997
+userID: CID0000000001
+Product Ids: P23012
+Total transaction amount: 4995
+Reward Points: 1044
+
+Transaction id: 116408
+userID: CID0000000001
+Product Ids: P23012
+Total transaction amount: 9990
+Reward Points: 2043
+
+Transaction id: 117551
+userID: CID0000000001
+Product Ids: P23012
+Total transaction amount: 4995
+Reward Points: 1044
+
+Transaction id: 119223
+userID: CID0000000001
+Product Ids: P23012
+Total transaction amount: 4995
+Reward Points: 1044
+
+Transaction id: 123729
+userID: CID0000000001
+Product Ids: P23012
+Total transaction amount: 4995
+Reward Points: 1044
+
+Transaction id: 124278
+userID: CID0000000001
+Product Ids: P23012
+Total transaction amount: 4995
+Reward Points: 1044
+
+Transaction id: 127743
+userID: CID0000000001
+Product Ids: P23012
+Total transaction amount: 4995
+Reward Points: 1044
+
+Transaction id: 128085
+userID: CID0000000001
+Product Ids: P23012
+Total transaction amount: 4995
+Reward Points: 1044
+
+Transaction id: 128667
+userID: CID0000000001
+Product Ids: P23012
+Total transaction amount: 4995
+Reward Points: 1044
+
+Transaction id: 132295
+userID: CID0000000001
+Product Ids: P23012
+Total transaction amount: 4995
+Reward Points: 1044
 

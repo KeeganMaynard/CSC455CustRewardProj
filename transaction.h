@@ -155,7 +155,7 @@ void transaction::shopping(customer &cust, product &prod) {
   bool notDone = true;
   while (play) {
     cout << "Enter your username: ";
-    cin >> custUN;
+    getline(cin, custUN);
     if (cust.custUNPresent(custUN)) {
       for (int i = 0; i < cust.customers.size(); i++) {
         if (custUN == cust.customers[i].getUserName()) {
@@ -164,7 +164,7 @@ void transaction::shopping(customer &cust, product &prod) {
           while (notDone) {
             cout << "Enter the productId's you'd like to purchase, "
                     "enter 'q' to stop entering Ids: ";
-            cin >> prodId;
+            getline(cin, prodId);
             if (prodId.compare("q")) {
               tempProds.push_back(prod.returnProduct(prod, prodId));
             } else {
@@ -178,19 +178,6 @@ void transaction::shopping(customer &cust, product &prod) {
           continue;
         }
       }
-      // prod.printProducts(prod);
-      // while (notDone) {
-      //   cout << "Enter the productId's you'd like to purchase, "
-      //           "enter 'q' to stop entering Ids: ";
-      //   cin >> prodId;
-      //   if (prodId.compare("q")) {
-      //     tempProds.push_back(prod.returnProduct(prod, prodId));
-      //   } else {
-      //     notDone = false;
-      //   }
-      // }
-      // int rPoints = completePurchase(tempCust, tempProds);
-      // tempCust.setPoints(rPoints);
     } else {
       cout << "The Username does not exist! Enter again." << endl;
       play = true;
@@ -201,16 +188,17 @@ void transaction::shopping(customer &cust, product &prod) {
 int transaction::completePurchase(customer cust, vector<product> &tempProds) {
   transaction trans;
   int rPoints = 0;
-  int quantity;
+  string quantity;
   trans.transactionID = to_string(100000 + (rand() % 999999));
 
   trans.setUserID(cust.getCustID());
   for (int i = 0; i < tempProds.size(); i++) {
     cout << "Enter the quantity of " + tempProds[i].getProductID() + ": ";
-    cin >> quantity;
-    if (validateQuantity(tempProds[i], quantity)) {
+    getline(cin, quantity);
+    if (validateQuantity(tempProds[i], stoi(quantity))) {
       trans.productIDs.push_back(tempProds[i].getProductID());
-      trans.totalAmount += stoi(tempProds[i].getProductPrice()) * quantity;
+      trans.totalAmount +=
+          stoi(tempProds[i].getProductPrice()) * stoi(quantity);
     } else {
       continue;  //? Gotta add stuff to this
     }

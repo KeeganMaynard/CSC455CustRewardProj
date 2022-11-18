@@ -4,5 +4,13 @@ customer 0 first name mike
 customer 0 last name gegg
 customer 0 date of birth 05-06-2001
 customer 0 credit card number 1111-1111-1111
-customer 0 total reward points 45
+customer 0 total reward points 1044
+
+customer 1 ID CID0000000002
+customer 1 user name asdfghjkl111
+customer 1 first name asd
+customer 1 last name fgh
+customer 1 date of birth 05-06-2001
+customer 1 credit card number 2222-2222-2222
+customer 1 total reward points 36
 
