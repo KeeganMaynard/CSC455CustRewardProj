@@ -49,6 +49,8 @@ class transaction {
 
   void setUserID(string id) { userID = id; }
 
+  void completePurchase(customer &cust, product tempProd);
+
   void setTotalAmount(float amount) { totalAmount = amount; }
   void setProductIDs(vector<string> ids) { productIDs = ids; }
   void setRewardPoints(int rPoints) { rewardPoints = rPoints; }
@@ -127,8 +129,9 @@ void transaction::writeTransactions(vector<transaction> &transactions) {
 void transaction::shopping(customer &cust, product &prod) {
   string custUN, prodId;
   customer *tempCust;
-  product tempProd;
+  vector<product> tempProds;
   bool play = true;
+  bool notDone = true;
   while (play) {
     cout << "Enter your username number: ";
     cin >> custUN;
@@ -142,12 +145,29 @@ void transaction::shopping(customer &cust, product &prod) {
         }
       }
       prod.printProducts(prod);
-      cout << "Enter the productId you'd like to purchase: ";
-      cin >> prodId;
-      tempProd = prod.returnProduct(prod, prodId);
+      while (notDone) {
+        cout << "Enter the productId you'd like to purchase: ";
+        cin >> prodId;
+        tempProd
+      }
+      completePurchase(cust, tempProd);
     } else {
       cout << "The Username does not exist! Enter again." << endl;
       play = true;
     }
+  }
+}
+
+// string transactionID;
+// string userID;
+// vector<string> productIDs;
+// float totalAmount;
+// int rewardPoints;
+// vector<transaction> transactions;
+void transaction::completePurchase(customer &cust, vector<product> tempProds) {
+  transaction trans;
+  trans.setUserID(cust.getCustID());
+  for (int i = 0; i < tempProds.size(); i++) {
+    trans.transactions.push_back(tempProds[i]);
   }
 }
