@@ -199,7 +199,11 @@ void rewards::redeemRewards(customer &cust)
   rewards rewardTemp;
   cout << "Enter in your username: " << endl;
   getline(cin, custUN);
-  cout << "What gift would you like to reedeem?: " << endl;
+  for (int i = 0; i < rews.size(); i++)
+  {
+    cout << "Gift: " << rews[i].getGift() << " costs: " << rews[i].getGiftValue() << endl;
+  }
+  cout << "What gift would you like to reedeem: " << endl;
   getline(cin, reward);
   for (int i = 0; i < rews.size(); i++)
   {
