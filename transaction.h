@@ -86,18 +86,35 @@ vector<string> transaction::processProductIDs(string line) {
 }
 
 vector<transaction> transaction::createTransactions(vector<string> lines) {
+  // create a temporary transaction object
   transaction t;
-  vector<transaction> transactions;
+  // grab the  amount of transactions within the file, if we know each block of
+  // transactions is 6 lines long we can take the file size % 6 to roughly get
+  // the amount of store transactions, this is technically depreciated as its
+  // not used
   int transactionCount = lines.size() % 6;
-  for (int j = 0; j <= lines.size(); j += 6) {
+  for (int j = 0; j <= lines.size();
+       j += 6) {  // moving 6 lines at a time to get each block of transaction
+    // setting the temporary transactions id
     t.transactionID = lines[j];
+    // setting the temporary transactions userID
     t.userID = lines[j + 1];
+    // setting the tempory transactions productIDs
     t.productIDs = processProductIDs(lines[j + 2]);
+    // set the temporyt transactions total amount
     t.totalAmount = stof(lines[j + 3]);
+    // setting the tempory transactions reward points
     t.rewardPoints = stoi(lines[j + 4]);
+    // pushing to the main files transactions vector
     transactions.push_back(t);
   }
+  // returning the vector that was pushed too, technically not necessary but
+  // could be useful in situations
   return transactions;
+
+  // each time this function is run it creates a new temporary transaction
+  // object then pushes it to the permanent transaction objects vector of
+  // transactions within the main file
 }
 
 string transaction::toString(vector<string> ids) {
