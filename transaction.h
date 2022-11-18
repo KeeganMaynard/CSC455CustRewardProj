@@ -54,7 +54,7 @@ class transaction {
   void setProductIDs(vector<string> ids) { productIDs = ids; }
   void setRewardPoints(int rPoints) { rewardPoints = rPoints; }
 
-  void completePurchase(&customer cust, vector<product> &tempProds);
+  void completePurchase(customer cust, vector<product> &tempProds);
   vector<string> readFile(string file);
   vector<string> processProductIDs(string line);
   vector<transaction> createTransactions(vector<string> lines);
@@ -160,7 +160,7 @@ void transaction::shopping(customer &cust, product &prod) {
     if (cust.custUNPresent(custUN)) {
       for (int i = 0; i < cust.customers.size(); i++) {
         if (custUN == cust.customers[i].getUserName()) {
-          tempCust = &cust.customers[i];
+          tempCust = cust.customers[i];
           play = false;
         } else {
           continue;
@@ -185,7 +185,7 @@ void transaction::shopping(customer &cust, product &prod) {
   }
 }
 
-void transaction::completePurchase(customer &cust, vector<product> &tempProds) {
+void transaction::completePurchase(customer cust, vector<product> &tempProds) {
   transaction trans;
   int quantity;
   trans.transactionID = to_string(100000 + (rand() % 999999));
