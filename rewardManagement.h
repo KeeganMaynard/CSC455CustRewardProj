@@ -1,10 +1,5 @@
 /*Reward management class - will connect with mainMenu.cpp
-    this service allows the manager to specify the following
-    - the number of points awarded for a given shopping amount
-    - the gifts that can be redeemed given the total number of reward points
-    - will need function that determine if redeem points are enough
-        - ie. function to check if points cost > customer points
-*/
+ */
 
 #ifndef REWARDMANAGEMENT_H
 #define REWARDMANAGEMENT_H
@@ -41,9 +36,18 @@ void redeemRate::inputRate()
   string newRate = "";
   cout << "Enter the percentage of points the customer should earn per dollar spent: ";
   getline(cin, newRate);
-  float newPercent = stof(newRate);
-  setRedeemRate(newPercent);
-  logRate();
+  if (regex_match(newRate, regex("^[0-9][0-9]$")))
+  {
+    float newPercent = stof(newRate) / 100;
+    setRedeemRate(newPercent);
+    logRate();
+  }
+  else
+  {
+    cout << "Enter the percentage as a whole number." << endl;
+    cout << "For example: enter 20 to signify 20%" << endl;
+    inputRate();
+  }
 }
 
 void redeemRate::logRate()
@@ -64,7 +68,7 @@ void redeemRate::loadRate()
   {
     string line;
     getline(rateLog, line);
-    float loadRate = stof(line);
+    float loadRate = stof(line) / 100;
     setRedeemRate(loadRate);
   }
   else

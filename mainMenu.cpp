@@ -28,6 +28,7 @@ int main() {
   srand(time(NULL));
   cust.initilize();
   prod.initilize();
+  redRate.loadRate();
   bool run = true;
   while (run) {
     string option = "";
