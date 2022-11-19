@@ -147,6 +147,12 @@ void transaction::writeTransactions(vector<transaction> transactions) {
   myFile.close();
 }
 
+/**
+ * @brief Driver function that handles shopping functionality
+ *
+ * @param cust reference to the customer object in the mainMenu.cpp
+ * @param prod reference to the product object in the mainMenu.cpp
+ */
 void transaction::shopping(customer &cust, product &prod) {
   string custUN, prodId;
   vector<string> prodIds;
@@ -184,7 +190,14 @@ void transaction::shopping(customer &cust, product &prod) {
     }
   }
 }
-
+/**
+ * @brief
+ *
+ * @param cust
+ * @param tempProds
+ * @param prodIds
+ * @return int
+ */
 int transaction::completePurchase(customer cust, vector<product> &tempProds,
                                   vector<string> prodIds) {
   transaction trans;
@@ -204,7 +217,7 @@ int transaction::completePurchase(customer cust, vector<product> &tempProds,
           tempProds[j].setNumProducts(tempProds[j].getNumProducts() -
                                       stoi(quantity));
         } else {
-          completePurchase(cust, tempProds, prodIds);
+          continue;
         }
       }
     }
