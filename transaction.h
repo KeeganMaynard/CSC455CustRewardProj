@@ -62,6 +62,7 @@ class transaction {
   void writeTransactions(vector<transaction> transactions);
   void shopping(customer &cust, product &prod);
   bool validateQuantity(product prod, int quantity);
+  bool find2(vector<string> prods, string id);
 };
 
 vector<string> transaction::readFile(string file) {
@@ -181,7 +182,7 @@ void transaction::shopping(customer &cust, product &prod) {
           tempCust.setPoints(rPoints);
           play = false;
         } else {
-          continue;
+          // continue;
         }
       }
     } else {
@@ -191,10 +192,11 @@ void transaction::shopping(customer &cust, product &prod) {
   }
 }
 /**
- * @brief
+ * @brief Function to take the quantity of the amount the user wishes to
+ * purchase and modify the existing vectors accordingly
  *
- * @param cust
- * @param tempProds
+ * @param cust customer object to be modified
+ * @param tempProds vector of the temporary products to be used and have their
  * @param prodIds
  * @return int
  */
@@ -205,21 +207,22 @@ int transaction::completePurchase(customer cust, vector<product> &tempProds,
   string quantity;
   trans.transactionID = to_string(100000 + (rand() % 999999));
   trans.setUserID(cust.getCustID());
-  for (int i = 0; i < prodIds.size(); i++) {
-    for (int j = 0; j < tempProds.size(); j++) {
-      if (prodIds[i].compare(tempProds[j].getProductID()) == 0) {
-        cout << "Enter the quantity of " + tempProds[i].getProductID() + ": ";
-        getline(cin, quantity);
-        if (validateQuantity(tempProds[i], stoi(quantity))) {
-          trans.productIDs.push_back(tempProds[j].getProductID());
-          trans.totalAmount +=
-              stoi(tempProds[j].getProductPrice()) * stoi(quantity);
-          tempProds[j].setNumProducts(tempProds[j].getNumProducts() -
-                                      stoi(quantity));
-        } else {
-          continue;
-        }
+  for (int i = 0; i < tempProds.size(); i++) {
+    if (find2(prodIds, tempProds[i].getProductID())) {
+      cout << "Enter the quantity of " + tempProds[i].getProductID() + ":";
+      getline(cin, quantity);
+      if (validateQuantity(tempProds[i], stoi(quantity))) {
+        trans.productIDs.push_back(tempProds[i].getProductID());
+        trans.totalAmount +=
+            stoi(tempProds[i].getProductPrice()) * stoi(quantity);
+        tempProds[i].setNumProducts(tempProds[i].getNumProducts() -
+                                    stoi(quantity));
+      } else {
+        continue;
       }
+
+    } else {
+      continue;
     }
   }
   rPoints = cust.getPoints() + trans.totalAmount / 5;
@@ -235,4 +238,23 @@ bool transaction::validateQuantity(product prod, int quantity) {
   } else {
     return true;
   }
+}
+/**
+ * @brief A function to look through the passed in products vector to determine
+ * if a product with that id exist used for completeTransaction()
+ *
+ * @param prods the vector you are looking for the id
+ * @param id the id you are looking for
+ * @return true if the id is found within the products vector
+ * @return false if the id is not found in the products vector
+ */
+bool transaction::find2(vector<string> prodIds, string id) {
+  for (int i = 0; i < prodIds.size(); i++) {
+    if (prodIds[i].compare(id) == 0) {
+      return true;
+    } else {
+      continue;
+    }
+  }
+  return false;
 }
