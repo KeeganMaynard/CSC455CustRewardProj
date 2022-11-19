@@ -68,13 +68,22 @@ void redeemRate::loadRate()
   {
     string line;
     getline(rateLog, line);
-    float loadRate = stof(line) / 100;
-    setRedeemRate(loadRate);
+    if (!line.empty())
+    {
+      float loadRate = stof(line) / 100;
+      setRedeemRate(loadRate);
+    }
+    else
+    {
+      // do nothing
+    }
   }
   else
   {
     cout << "Error reading the log file. Please ensure the file is attached to store the rate information" << endl;
   }
+
+  rateLog.close();
 }
 
 // rewards class
